@@ -49,7 +49,7 @@ if (file.exists("data")) {
 meta_url <- "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE31nnn/GSE31684/suppl/GSE31684%5Ftable%5Fof%5Fclinical%5Fdetails.txt.gz"
 
 # setting working directory
-setwd(file.path("~/projects/group_07_project"))
+setwd(file.path(".."))
 
 
 if (file.exists("data/_raw/GSE31684_meta_data.tsv")){
@@ -73,15 +73,15 @@ head(meta_data)
 
 ```{r}
 
-dir.create("../data")
+
 
 # Retrieve the data directly
 bladder_data <- read_csv(file = "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE31nnn/GSE31684/matrix/GSE31684_series_matrix.txt.gz")
 
 # Write the data to disk
 write_csv(x = bladder_data,
-          file = "../data/bladder.csv")
+          file = "../_raw/data/bladder.csv")
 
-meta_data<- read_csv("../data/bladder.csv")
+meta_data<- read_csv("../_raw/databladder.csv")
 head(meta_data)
 ```
