@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+## Load packages
+
 ```{r}
 #| output: false
 #| warning: false
@@ -11,21 +13,56 @@ library(tidyverse)
 library(httr)
 ```
 
+## Creating data folder if not already exists
+
+If the data folder and subfolder \_raw does not already exist, this code will create it.
+
+```{r}
+# setting up main directory 
+main_dir <- "~/projects/group_07_project" 
+
+# setting up the data directory
+data_dir <- "data"
+raw_dir <- "data/_raw"
+
+if (file.exists("data")) { 
+  
+    # specifying the working directory 
+    setwd(file.path(main_dir)) 
+  
+} else { 
+    
+    # create data directory inside main path 
+    dir.create(file.path(main_dir, data_dir))
+  
+    # create _raw directory inside data
+    dir.create(file.path(main_dir, raw_dir))
+  }
+```
+
 ## Download data
 
 ```{r}
-#| warn: false
+#| warning: false
 meta_url <- "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE31nnn/GSE31684/suppl/GSE31684%5Ftable%5Fof%5Fclinical%5Fdetails.txt.gz"
 
-if (file.exists("data/GSE31684_meta_data.csv")){
-  # Unzip and read the contents using tidyverse functions
-  meta_data <- read_csv("data/GSE31684_meta_data.csv", show_col_types = FALSE)
-} else {
-  # Download the gzipped file
-  GET(meta_url, write_disk("data/GSE31684_meta_data.csv"))
+# setting working directory
+setwd(file.path("~/projects/group_07_project"))
+
+
+if (file.exists("data/_raw/GSE31684_meta_data.csv")){
   
   # Unzip and read the contents using tidyverse functions
-  meta_data <- read_csv(gzfile("data/GSE31684_meta_data.csv"),  show_col_types = FALSE)
+  meta_data <- read_csv("data/_raw/GSE31684_meta_data.csv",
+                        show_col_types = FALSE)
+  
+} else {
+  # Download the gzipped file
+  GET(meta_url, write_disk("data/_raw/GSE31684_meta_data.csv"
+                           ))
+  
+  # Unzip and read the contents using tidyverse functions
+  meta_data <- read_csv(gzfile("data/_raw/GSE31684_meta_data.csv"),  show_col_types = FALSE)
 }
                           
 # View the first few rows of the data
