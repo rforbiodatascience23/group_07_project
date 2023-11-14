@@ -18,8 +18,10 @@ library(httr)
 If the data folder and subfolder \_raw does not already exist, this code will create it.
 
 ```{r}
+#| output: false
+#| warning: false
 # setting up main directory 
-main_dir <- "~/projects/group_07_project" 
+main_dir <- ".." 
 
 # setting up the data directory
 data_dir <- "data"
