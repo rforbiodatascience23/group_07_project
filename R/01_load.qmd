@@ -93,3 +93,32 @@ gene_exp_data <- read_tsv("../data/_raw/gene_exp.tsv")
 
 head(gene_exp_data )
 ```
+
+```{r}
+# Removed last line:
+gene_exp_data <- gene_exp_data |> 
+  filter(!str_detect(ID_REF, "^!"))
+
+# Create data subset:
+gene_exp_subset <- gene_exp_data |> 
+  slice_sample(n=5000)
+```
+
+```{r}
+# Transpose the data table:
+df_long <- gene_exp_subset %>%
+  pivot_longer(cols = -ID_REF, names_to = "GEO", values_to = "Value")
+
+# Transpose the dataframe from long to wide format
+df_wide <- df_long %>%
+  pivot_wider(names_from = ID_REF, values_from = Value)
+```
+
+```{r}
+# Join metadata and gene expresison data based on patient ID:
+data_joined = full_join(meta_data, df_wide, by = join_by(GEO))
+```
+
+```{r}
+write_tsv(data_joined, "../data/data_joined.tsv")
+```
