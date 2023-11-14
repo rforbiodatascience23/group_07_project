@@ -68,7 +68,7 @@ if (file.exists("data/_raw/GSE31684_meta_data.tsv")){
 }
                           
 # View the first few rows of the data
-head(meta_data)
+meta_data
 ```
 
 ## Download gene expression data
@@ -91,5 +91,5 @@ write_tsv(x = gene_exp_file,
 
 gene_exp_data <- read_tsv("../data/_raw/gene_exp.tsv")
 
-head(gene_exp_data )
+gene_exp_data
 ```
