@@ -42,7 +42,7 @@ if (file.exists("data")) {
   }
 ```
 
-## Download data
+## Download meta data
 
 ```{r}
 #| warning: false
@@ -71,17 +71,25 @@ if (file.exists("data/_raw/GSE31684_meta_data.tsv")){
 head(meta_data)
 ```
 
+## Download gene expression data
+
 ```{r}
+# creating url
+gene_url <- "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE31nnn/GSE31684/matrix/GSE31684_series_matrix.txt.gz"
 
-
+# this is necessary to not get error message about connection buffer
+Sys.setenv(VROOM_CONNECTION_SIZE=500000)
 
 # Retrieve the data directly
-bladder_data <- read_csv(file = "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE31nnn/GSE31684/matrix/GSE31684_series_matrix.txt.gz")
+# skippin first 82 lines because it is just info
+gene_exp_file <- read_tsv(file = gene_url,
+                          skip = 82)
 
 # Write the data to disk
-write_csv(x = bladder_data,
-          file = "../_raw/data/bladder.csv")
+write_tsv(x = gene_exp_file,
+          file = "../data/_raw/gene_exp.tsv")
 
-meta_data<- read_csv("../_raw/databladder.csv")
-head(meta_data)
+gene_exp_data <- read_tsv("../data/_raw/gene_exp.tsv")
+
+head(gene_exp_data )
 ```
