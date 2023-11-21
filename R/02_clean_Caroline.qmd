@@ -1,0 +1,66 @@
+---
+title: "02_clean_Caroline.qmd"
+format: html
+editor: visual
+---
+
+## Load packages
+
+```{r}
+#| output: false
+#| warning: false
+library(tidyverse)
+library(httr)
+library(readr)
+```
+
+## Load data
+
+```{r}
+data <- read_tsv("../data/data_joined.tsv")
+```
+
+## Renaming column names, so all have snakecase and no spaces
+
+```{r}
+# this could probably be done prettier, by somehow searching for all spaces in the column titles
+# and replacing with an _
+# but haven't figured that out
+data_names <- data |> 
+  rename(Age_at_RC = `Age at RC`,
+         Survival_Months = `Survival Months`,
+         PLND_Result = `PLND Result`,
+         RC_Grade = `RC Grade`,
+         Nomogram_Score = `Nomogram Score`,
+         Distant_Mets = `Distant Mets`,
+         Local_Recurrence = `Local Recurrence`,
+         Urothelial_Recurrence = `Urothelial Recurrence`,
+         Last_Known_Status = `Last known status`,
+         Post_RC_Chemo = `Post RC_Chemo`,
+         PostChemo_type = `PostChemo type`,
+         Recurrence_Free_Survival_Months = `Recurrence Free Survival Months (Distant and Local)`) |> 
+  select(!ID)
+```
+
+## Cleaning stuff
+
+```{r}
+# all the columns with binary, can be changed to factors instead of numeric
+# this is Distant_Mets, Local_Recurrence, Urothelial_Recurrence, Metastasis
+
+# checking that there are only binary in these columns
+data_names |> 
+  count(Distant_Mets,
+        Local_Recurrence,
+        Urothelial_Recurrence,
+        Metastasis)
+
+# changing to factor instead of numeric
+data_names |> 
+  mutate(across(c(Distant_Mets,
+        Local_Recurrence,
+        Urothelial_Recurrence,
+        Metastasis),factor)) |> 
+  summarise_all(class)
+
+```
