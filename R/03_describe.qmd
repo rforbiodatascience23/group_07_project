@@ -4,4 +4,59 @@ format: html
 editor: visual
 ---
 
-## 
+## Info
+
+Data is available here: [NCBI](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE31684)
+
+The article published based on the data is available here: [PMC](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3569085/)
+
+The title of the article is:
+
+*Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer*
+
+A nomogram, also called an alignment chart, uses biologic and clinical variables, such as tumor grade and patient age, to graphically depict a statistical prognostic model that generates a probability of a clinical event, such as cancer recurrence or death, for a given individual([1](https://newsnetwork.mayoclinic.org/discussion/what-the-heck-is-a-nomogram-and-other-medical-research-questions-answered/)).
+
+```{r}
+library(table1)
+```
+
+## Cleaning the data
+
+```{r}
+# Nx lymph node status has been written both as NX and Nx, this changes the NX to Nx and leaves the others as is
+# In RC Histology, we should only have TCC and TCC/Squamos, and the TCC/CIS should be TCC
+data_names <- data_names |> 
+  mutate(PLND_Result = case_when(PLND_Result == "NX" ~ "Nx",
+                                 .default = PLND_Result)) |> 
+  mutate(RC_Histology = case_when(RC_Histology == "TCC/CIS" ~ "TCC",
+                                  .default = RC_Histology))
+
+# changing Genders to capital first letter
+data_names <- data_names |> 
+  mutate(Gender = case_when(Gender == "female" ~ "Female",
+                            Gender == "male" ~ "Male"))
+
+# we are removing all the gene expression data, and all these
+# columns end with _at
+meta_data <- data_names |> 
+  select(!ends_with("_at"))
+```
+
+## Table visualizing meta data
+
+```{r}
+label(meta_data$Age_at_RC) <- "Age"
+label(meta_data$RC_Histology) <- "Histologic type"
+label(meta_data$RC_Stage) <- "RC stage"
+label(meta_data$PLND_Result) <- "Lymph node status"
+
+meta_data |>
+  mutate(Gender = factor(Gender),
+         Last_Known_Status = factor(Last_Known_Status, 
+                                    levels = c("DOC", "DOD", "NED"),
+                                    labels = c("Death of other cause",
+                                               "Death of disease",
+                                               "No evidence of disease/alive"))) |>
+  table1(x = formula(~ Age_at_RC + Gender + RC_Histology + RC_Stage + PLND_Result | Last_Known_Status),
+         data = _)
+```
