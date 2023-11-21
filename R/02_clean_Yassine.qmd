@@ -35,6 +35,14 @@ data |>
   keep(~ . != 0)
 ```
 
+We transform the NA's into 0:
+
+```{r}
+
+data_na_dropped <- data |>
+mutate(across(everything(), ~ifelse(is.na(.), 0, .)))
+```
+
 We encode binary data to have it as numeric
 
 ```{r}
