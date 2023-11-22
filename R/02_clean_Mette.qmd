@@ -11,6 +11,7 @@ editor: visual
 #| warning: false
 library(tidyverse)
 library(httr)
+set.seed(1)
 #library(readr)
 ```
 
@@ -77,6 +78,8 @@ unique(gene_diff_exp$Smoking)
 ```{r}
 gene_diff_exp |> 
   mutate(log_10_p = -log10(p_value)) |> 
+  ungroup() |> 
+  sample_n(3000) |> 
   ggplot(mapping = aes(x = log2_fold_change,
                        y = log_10_p,
                        color=is_significant)) +
@@ -95,7 +98,8 @@ gene_diff_exp |>
 ```{r}
 gene_diff_exp |> 
   mutate(log_10_p = -log10(p_value)) |> 
-  sample_n(20) |> 
+  ungroup() |> 
+  sample_n(7000) |> 
   ggplot(mapping = aes(x = log2_fold_change,
                        y = log_10_p,
                        color=Smoking)) +
@@ -116,4 +120,36 @@ gene_diff_exp |>
 -log10(0.01)
 ```
 
-## Analysis 2: Smoking vs gene upregulation
+## Analysis 2: Smoking vs gene up-/down regulation
+
+```{r}
+
+most_sig_genes <- gene_diff_exp |> 
+  group_by(gene) |> 
+  summarise(mean_pval = mean(p_value), mean_log2 = mean(log2_fold_change)) |> 
+  slice_min(order_by = mean_pval, n=5)
+
+most_sig_genes_list <- most_sig_genes |> 
+  select(gene) |> 
+  as.list()
+
+most_sig_genes_list <- most_sig_genes_list[[1]]
+
+most_sig_genes_list
+most_sig_genes
+```
+
+```{r}
+gene_diff_exp |> 
+  filter(gene %in% most_sig_genes_list) 
+# Choose up vs down regulated genes only. (depending ...)
+# Count number of samples with this upregulated gene
+# Calculate percentage of Former, Current, and Not smoker. 
+# Make the stacked barchart. 
+  
+  
+perc <- perc %>%
+  group_by(Type, Stream_Order) %>%
+  mutate(percentage = n[Group == 'all']/n[Group == 'all']*100) %>%
+  ungroup
+```
