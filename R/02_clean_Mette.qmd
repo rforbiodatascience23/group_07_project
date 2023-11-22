@@ -19,9 +19,6 @@ library(httr)
 ```{r}
 data <- read_tsv("../data/data_joined.tsv")
 
-metadata_to_rem <- colnames(data)[25:]
-metadata_to_rem <- metadata_to_rem[metadata_to_rem != "Smoking"]
-
 head(data)
 
 genes <- colnames(data)[25:length(colnames(data))]
