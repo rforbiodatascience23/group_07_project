@@ -15,110 +15,65 @@ library(readr)
 ## Load Data:
 
 ```{r}
-data <- read_tsv("../data/01_dat_load.tsv")
+data <- read_tsv("../data/03_dat_aug.tsv")
 
-head(data)
+data
 ```
 
-## Clean Data:
+## Analysis 1: 
 
-```{r}
-# Cleaning the data:
-data_clean <- data |>
-  relocate(Metastasis, "Smoking") |>
-  select(!GEO:Cluster) 
+In the first analysis, we want to investigate the gene expression regulation of the genes that were found to be significantly associated to metastatic bladder cancer. The significance was calculated on the basis of a students T-test where the expression of each gene was compared based on if the patients had metastatic cancer or not.
 
-# Making the dataset long:
-data_clean_long <- data_clean |> 
-  pivot_longer(
-    cols=-c(Metastasis, "Smoking"),
-    names_to = "gene",
-    values_to = "gene_expression") 
+From the T-test, 286 genes were found to be significantly different expressed in observations with metastatic cancer compared to observations without metastatic cancer. These genes were selected based on a significance level of 0.01.
 
-data_clean_long
-```
+To further investigate if the significant genes are up-regulated or down-regulated, we calculated the Log2-Fold-Change. This was calculated by comparing the gene expression in samples with metastasis to the average gene expression across samples without metastasis for each gene. The formula for a specific gene in observation X is:
 
-## Analysis 1: Investigation of genes that are significantly different expressed in cases with metastatic cancer compared to non-metastatic cancer and their regulation.
-
-```{r}
-# Selecting genes with different average gene expression based on the metastatic and non-metastatic cases:
-gene_variability <- data_clean_long |>
-  group_by(gene) |>
-  summarise(mean_0 = mean(gene_expression[Metastasis == 0]), 
-            mean_1 = mean(gene_expression[Metastasis == 1])) |>
-  mutate(mean_dif = mean_0 - mean_1) |>
-  filter(mean_dif != 0) |>
-  pull(gene)
-
-# Calculate the t-test p value of the gene_expression by comparring recurrent and non-recurrent for each gene:
-gene_diff_exp <- data_clean_long %>%
-  filter(gene %in% gene_variability) %>% # Filtering for genes that differenly expressed.
-  group_by(gene) %>%
-  mutate(p_value = t.test(gene_expression[Metastasis == 1], 
-                          gene_expression[Metastasis == 0])$p.value) %>%
-  mutate(log2_fold_change = mean(log2(gene_expression[Metastasis == 1])) - mean(log2(gene_expression[Metastasis == 0]))) %>% #Calculating the log2 fold change by using the mean.
-  filter(p_value<0.01) # Filtering only for significant genes
-  
-gene_diff_exp
-```
-
-### Visualization 1: Distribution of gene expression of genes that are significantly different expressed based on metastatic cases and non-metastatic cases.
-
-```{r}
-# Make data subset of significant genes:
-filtered_data_expression <- gene_diff_exp %>%
-  mutate(Metastasis_2 = case_when(Metastasis == 1 ~ "Yes",
-                                  Metastasis == 0 ~"No")) 
-  #filter(gene == "235218_x_at")
-
-ggplot(data = filtered_data_expression, 
-       mapping = aes(x = gene,
-                     y = gene_expression,
-                     fill = Metastasis_2)) + 
-  geom_boxplot() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 0.5, size = 8)) 
-```
-
-### Visualization 2: Gene regulation of significant genes - calculating the difference in mean gene expression of metastatic and non-metastatic cases:
-
-We now want to explore whether the genes exhibiting significant differential expression in metastatic cancer compared to non-metastatic cancer demonstrate either higher or lower expression levels relative to non-metastatic cancer. To achieve this, we compute the average expression log2 fold change for each gene by contrasting the gene expression profiles between metastatic and non-metastatic cancer conditions. $$
-\text{AvgLog2FC} = \log_2\left(\frac{\text{mean}\left(\text{gene_expression}_{metastasis}\right)}{\text{mean}\left(\text{gene_expression}_{no-metastasis}\right)}\right)
+$$
+\text{Log2 Fold Change}(X) = \log_2\left(\frac{\text{gene expression}_{\text{metastasis}}(X)}{\text{mean}(\text{gene expression}_{\text{no-metastasis}})}\right)
 $$
 
+The figure below shows the top 36 most significant genes, and their mean Log2 Fold Change value (circle), together with their lower and upper 95% confidence intervals (bars).
+
 ```{r}
-# Categorize genes based on log2 fold change
-filtered_data_regulation <- gene_diff_exp |>
-  filter(Metastasis == 1) |> # Filtering only for genes from recurrent cases.
-  mutate(Regulation = case_when(log2_fold_change > 0 ~ "Upregulated",
-                                 log2_fold_change < 0 ~ "Downregulated",
-                                 log2_fold_change == 0 ~ "Unchanged"))
-
-
-# Create a scatter plot to visualize log2 fold changes of significant genes
-ggplot(filtered_data_regulation, aes(x = gene, 
-                          y = log2_fold_change, 
-                          color = Regulation)) +
-  geom_point(size = 1) +
-  labs(x = "Genes", y = "Avgerage Log2 Fold Change") +
-  scale_color_manual(values = c("red", "blue", "gray")) +  # Adjust colors as needed
-  ggtitle("Average Log2 Fold Change of genes expressed significantly different in metastatic cancer vs. non-metastatic cancer") +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, size = 8)) 
+data |>
+  filter(p_value < 0.002) |>
+  ggplot(aes(x = log2_fold_change,
+             y = reorder(gene, 
+                         log2_fold_change, 
+                         FUN = mean))) + 
+  stat_summary(fun.data = mean_cl_normal, 
+               geom = "point", 
+               shape = 20, 
+               size = 2, 
+               color = "black") +
+  stat_summary(fun.data = mean_cl_normal, 
+               geom = "errorbar", 
+               width = 0.7, 
+               color = "black", 
+               size = 1) + 
+  geom_vline(xintercept = 0, 
+             linetype="dotted", 
+             color = "blue", 
+             size=1) + 
+  xlab("Log2 Fold Change") + 
+  ylab("Genes") + 
+  ggtitle("Genes Associated with Metastasis in Bladder Cancer")
 ```
 
-## Analysis 2: Investigation of proportion of Smokers that have metastatic cancer compared to non-metastatic cancer.
+## Analysis 2: 
+
+In this analysis, we're exploring the potential relationship between smoking habits and the altered regulation of gene expression. Each gene in our dataset represents variation in gene expression across different patients. Interestingly, many genes exhibit both up-regulation and down-regulation patterns, which vary among individual patients.
+
+To understand this relationship, we aim to investigate the proportion of Current Smokers, Former Smokers, and Non-smokers for each gene. Additionally, we want to compare these proportions based on how the gene expression is regulated (whether a gene is up-regulated or down-regulated).
 
 ```{r}
-# Proportion
-ggplot(data = data, aes( 
-             y = smokers_count,
-             group = Metastasis)) +
-  geom_boxplot() +
-  facet_grid(. ~ Metastasis) + 
-  ggtitle("Survival Months for patients with metastatic cancer and non-mestatic cancer")
-
-# Counts:
-ggplot(data, aes(x = factor(Metastasis), fill = Smoking)) +
-  geom_bar(position = "dodge") +
-  labs(x = "Metastasis", y = "Count", fill = "Smoking") +
-  ggtitle("Count of Smoker Types within Metastasis or No Metastasis")
+data |>
+    filter(p_value < 0.002) |>
+    ggplot(aes(x = gene, 
+               fill = Smoking)) +
+      geom_bar(position = "fill") +
+      facet_wrap(~ Regulation) +
+      labs(x = "Genes", y = "Count") +
+      ggtitle("") +
+      theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, size = 5)) 
 ```
