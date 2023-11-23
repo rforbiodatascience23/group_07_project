@@ -39,7 +39,13 @@ data_aug
 ```{r}
 
  data_aug_log <- data_aug |>
-   mutate(log2_fold_change = mean(log2(gene_expression[Metastasis == 1])) - mean(log2(gene_expression[Metastasis == 0]))) |>
+   mutate(
+    log2_fold_change = ifelse(
+      Metastasis == 0,  # If Metastasis is equal to 0
+      NA,               # Set log2_fold_change as NA
+      log2(gene_expression / mean(gene_expression[Metastasis == 0]))
+    ))|>
+   filter(Metastasis==1)|>
   mutate(Regulation = case_when(log2_fold_change > 0 ~ "Upregulated",
                                  log2_fold_change < 0 ~ "Downregulated",
                                  log2_fold_change == 0 ~ "Unchanged"))
