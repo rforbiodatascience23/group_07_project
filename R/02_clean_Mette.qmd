@@ -142,6 +142,7 @@ most_sig_genes
 ```{r}
 gene_diff_exp |> 
   filter(gene %in% most_sig_genes_list) 
+  
 # Choose up vs down regulated genes only. (depending ...)
 # Count number of samples with this upregulated gene
 # Calculate percentage of Former, Current, and Not smoker. 
