@@ -25,20 +25,20 @@ head(data)
 ```{r}
 # Cleaning the data:
 data_clean <- data |>
-  relocate(Metastasis) |>
+  relocate(Metastasis, "Smoking") |>
   select(!GEO:Cluster) 
 
 # Making the dataset long:
 data_clean_long <- data_clean |> 
   pivot_longer(
-    cols=-c(Metastasis),
+    cols=-c(Metastasis, "Smoking"),
     names_to = "gene",
     values_to = "gene_expression") 
 
 data_clean_long
 ```
 
-## Analysis 1: Investigation of regulation of genes that are significantly different expressed in cases with metastatic cancer compared to non-metastatic cancer.
+## Analysis 1: Investigation of genes that are significantly different expressed in cases with metastatic cancer compared to non-metastatic cancer and their regulation.
 
 ```{r}
 # Selecting genes with different average gene expression based on the metastatic and non-metastatic cases:
@@ -56,37 +56,40 @@ gene_diff_exp <- data_clean_long %>%
   group_by(gene) %>%
   mutate(p_value = t.test(gene_expression[Metastasis == 1], 
                           gene_expression[Metastasis == 0])$p.value) %>%
-  mutate(mean_1 = mean(gene_expression[Metastasis == 1]),
-         mean_0 = mean(gene_expression[Metastasis == 0])) %>%
-  mutate(log2_fold_change = log2(mean_1) - log2(mean_0)) %>% # Calculating the log2 fold change by using the mean.
+  mutate(log2_fold_change = mean(log2(gene_expression[Metastasis == 1])) - mean(log2(gene_expression[Metastasis == 0]))) %>% #Calculating the log2 fold change by using the mean.
   filter(p_value<0.01) # Filtering only for significant genes
   
 gene_diff_exp
 ```
 
-### Visualization 1: Distribution of gene expression of genes that are significantly different expressed based on metastatic cases and non-metastatic cases. 
+### Visualization 1: Distribution of gene expression of genes that are significantly different expressed based on metastatic cases and non-metastatic cases.
 
 ```{r}
 # Make data subset of significant genes:
 filtered_data_expression <- gene_diff_exp %>%
   mutate(Metastasis_2 = case_when(Metastasis == 1 ~ "Yes",
-                                  Metastasis == 0 ~"No"))
+                                  Metastasis == 0 ~"No")) 
+  #filter(gene == "235218_x_at")
 
 ggplot(data = filtered_data_expression, 
        mapping = aes(x = gene,
-                     y = gene_expression),
-                     fill = Metastasis_2) + 
-  geom_point(size = 0.1) + 
-  geom_boxplot(outlier.size = 0.1)
+                     y = gene_expression,
+                     fill = Metastasis_2)) + 
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 0.5, size = 8)) 
 ```
 
 ### Visualization 2: Gene regulation of significant genes - calculating the difference in mean gene expression of metastatic and non-metastatic cases:
+
+We now want to explore whether the genes exhibiting significant differential expression in metastatic cancer compared to non-metastatic cancer demonstrate either higher or lower expression levels relative to non-metastatic cancer. To achieve this, we compute the average expression log2 fold change for each gene by contrasting the gene expression profiles between metastatic and non-metastatic cancer conditions. $$
+\text{AvgLog2FC} = \log_2\left(\frac{\text{mean}\left(\text{gene_expression}_{metastasis}\right)}{\text{mean}\left(\text{gene_expression}_{no-metastasis}\right)}\right)
+$$
 
 ```{r}
 # Categorize genes based on log2 fold change
 filtered_data_regulation <- gene_diff_exp |>
   filter(Metastasis == 1) |> # Filtering only for genes from recurrent cases.
-  mutate(regulation = case_when(log2_fold_change > 0 ~ "Upregulated",
+  mutate(Regulation = case_when(log2_fold_change > 0 ~ "Upregulated",
                                  log2_fold_change < 0 ~ "Downregulated",
                                  log2_fold_change == 0 ~ "Unchanged"))
 
@@ -94,9 +97,28 @@ filtered_data_regulation <- gene_diff_exp |>
 # Create a scatter plot to visualize log2 fold changes of significant genes
 ggplot(filtered_data_regulation, aes(x = gene, 
                           y = log2_fold_change, 
-                          color = regulation)) +
+                          color = Regulation)) +
   geom_point(size = 1) +
-  labs(x = "Genes", y = "Log2 Fold Change", title = "Log2 Fold Change of Significant Genes") +
+  labs(x = "Genes", y = "Avgerage Log2 Fold Change") +
   scale_color_manual(values = c("red", "blue", "gray")) +  # Adjust colors as needed
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 0.5, size = 8))
+  ggtitle("Average Log2 Fold Change of genes expressed significantly different in metastatic cancer vs. non-metastatic cancer") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, size = 8)) 
+```
+
+## Analysis 2: Investigation of proportion of Smokers that have metastatic cancer compared to non-metastatic cancer.
+
+```{r}
+# Proportion
+ggplot(data = data, aes( 
+             y = smokers_count,
+             group = Metastasis)) +
+  geom_boxplot() +
+  facet_grid(. ~ Metastasis) + 
+  ggtitle("Survival Months for patients with metastatic cancer and non-mestatic cancer")
+
+# Counts:
+ggplot(data, aes(x = factor(Metastasis), fill = Smoking)) +
+  geom_bar(position = "dodge") +
+  labs(x = "Metastasis", y = "Count", fill = "Smoking") +
+  ggtitle("Count of Smoker Types within Metastasis or No Metastasis")
 ```
