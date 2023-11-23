@@ -31,9 +31,8 @@ data_aug <- data_clean |>
   group_by(gene) |>
   mutate(p_value = t.test(gene_expression[Metastasis == 1], 
                           gene_expression[Metastasis == 0])$p.value) |>
-  mutate(q_value = p.adjust(p_value)) |>
-  filter(p_value<=0.01) # Filtering only for significant genes
-  
+  mutate(is_significant = case_when(p_value <= 0.01 ~ "Yes",
+                                    p_value > 0.01 ~ "No" ))
 data_aug
 ```
 
@@ -46,4 +45,10 @@ data_aug
                                  log2_fold_change == 0 ~ "Unchanged"))
  
  data_aug_log
+```
+
+## Write the data
+
+```{r}
+write_tsv(data_aug_log, "../data/03_dat_aug.tsv")
 ```
