@@ -25,15 +25,15 @@ data_clean
 
 ```{r}
 
-
 # Calculate the t-test p value of the gene_expression by comparring recurrent and non-recurrent for each gene:
-gene_diff_exp <- data_clean_long %>%
-  filter(gene %in% gene_variability) %>% # Filtering for genes that differenly expressed.
-  group_by(gene) %>%
+
+data_aug <- data_clean |>
+  group_by(gene) |>
   mutate(p_value = t.test(gene_expression[Metastasis == 1], 
-                          gene_expression[Metastasis == 0])$p.value) %>%
-  mutate(log2_fold_change = mean(log2(gene_expression[Metastasis == 1])) - mean(log2(gene_expression[Metastasis == 0]))) %>% #Calculating the log2 fold change by using the mean.
-  filter(p_value<0.01) # Filtering only for significant genes
+                          gene_expression[Metastasis == 0])$p.value) |>
+  mutate(log2_fold_change = mean(log2(gene_expression[Metastasis == 1])) - mean(log2(gene_expression[Metastasis == 0]))) |> #Calculating the log2 fold change by using the mean.
+  mutate(q_value = p.adjust(p_value)) |>
+  filter(q_value<=0.05) # Filtering only for significant genes
   
-gene_diff_exp
+data_aug
 ```
