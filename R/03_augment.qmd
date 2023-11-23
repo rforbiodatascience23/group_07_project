@@ -31,9 +31,19 @@ data_aug <- data_clean |>
   group_by(gene) |>
   mutate(p_value = t.test(gene_expression[Metastasis == 1], 
                           gene_expression[Metastasis == 0])$p.value) |>
-  mutate(log2_fold_change = mean(log2(gene_expression[Metastasis == 1])) - mean(log2(gene_expression[Metastasis == 0]))) |> #Calculating the log2 fold change by using the mean.
   mutate(q_value = p.adjust(p_value)) |>
-  filter(q_value<=0.05) # Filtering only for significant genes
+  filter(p_value<=0.01) # Filtering only for significant genes
   
 data_aug
+```
+
+```{r}
+
+ data_aug_log <- data_aug |>
+   mutate(log2_fold_change = mean(log2(gene_expression[Metastasis == 1])) - mean(log2(gene_expression[Metastasis == 0]))) |>
+  mutate(Regulation = case_when(log2_fold_change > 0 ~ "Upregulated",
+                                 log2_fold_change < 0 ~ "Downregulated",
+                                 log2_fold_change == 0 ~ "Unchanged"))
+ 
+ data_aug_log
 ```
