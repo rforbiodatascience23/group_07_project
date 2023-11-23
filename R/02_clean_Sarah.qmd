@@ -15,7 +15,7 @@ library(readr)
 ## Load Data:
 
 ```{r}
-data <- read_tsv("../data/data_joined.tsv")
+data <- read_tsv("../data/01_dat_load.tsv")
 
 head(data)
 ```
@@ -42,7 +42,7 @@ data_clean_long
 
 ```{r}
 # Selecting genes with different average gene expression based on the metastatic and non-metastatic cases:
-gene_variability <- data_clean_long %>%
+gene_variability <- data_clean_long |>
   group_by(gene) |>
   summarise(mean_0 = mean(gene_expression[Metastasis == 0]), 
             mean_1 = mean(gene_expression[Metastasis == 1])) |>

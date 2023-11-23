@@ -106,11 +106,11 @@ gene_exp_subset <- gene_exp_data |>
 
 ```{r}
 # Transpose the data table:
-df_long <- gene_exp_subset %>%
+df_long <- gene_exp_subset |>
   pivot_longer(cols = -ID_REF, names_to = "GEO", values_to = "Value")
 
 # Transpose the dataframe from long to wide format
-df_wide <- df_long %>%
+df_wide <- df_long |>
   pivot_wider(names_from = ID_REF, values_from = Value)
 ```
 
@@ -120,5 +120,5 @@ data_joined = full_join(meta_data, df_wide, by = join_by(GEO))
 ```
 
 ```{r}
-write_tsv(data_joined, "../data/data_joined.tsv")
+write_tsv(data_joined, "../data/01_dat_load.tsv")
 ```

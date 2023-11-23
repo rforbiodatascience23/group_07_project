@@ -4,8 +4,6 @@ format: html
 editor: visual
 ---
 
-## 
-
 ## Loading Packages:
 
 ```{r}
@@ -23,19 +21,34 @@ head(data)
 
 ## Clean Data:
 
+We select two attributes relevant to our analysis: Metastasis and Smoking, as well as gene expressions
+
 ```{r}
 # Cleaning the data: 
 data_clean <- data |> 
-  relocate(Metastasis, "Smoking") |>   
+  relocate(Metastasis, Smoking) |>   
   select(!GEO:Cluster)
 
 
 # Making the dataset long:
 data_clean_long <- data_clean |>    
-  pivot_longer(cols=-c(Metastasis, "Smoking"),
+  pivot_longer(cols=-c(Metastasis, Smoking),
                names_to = "gene",
                values_to = "gene_expression")   
 
+data_clean_long
+```
+
+We would like to drop the genes with no variability, as they will not provide useful information to our analysis.
+
+```{r}
+
+# Selecting genes with different average gene expression based on the metastatic and non-metastatic cases:
+data_clean_long <- data_clean_long |>
+  group_by(gene) |>
+  filter(sd(gene_expression)!=0)
+
+  
 data_clean_long
 ```
 
