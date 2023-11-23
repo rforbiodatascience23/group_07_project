@@ -141,7 +141,12 @@ most_sig_genes
 
 ```{r}
 gene_diff_exp |> 
-  filter(gene %in% most_sig_genes_list) 
+  filter(gene %in% most_sig_genes_list) |> 
+  mutate(mean_log2fold = mean(log2_fold_change)) |> 
+  mutate(check = if_else(condition = (mean_log2fold > 0 & log2_fold_change > 0) | (mean_log2fold < 0 & log2_fold_change < 0), "keep", "remove"))
+ 
+# Everything is keep???
+  
   
 # Choose up vs down regulated genes only. (depending ...)
 # Count number of samples with this upregulated gene
