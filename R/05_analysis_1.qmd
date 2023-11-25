@@ -58,7 +58,8 @@ ggsave(
   plot = volcano_plot,
   device = "png",
   height = 5,
-  dpi = 300  
+  dpi = 300,
+  bg = "white"
 )
 
 
