@@ -11,7 +11,14 @@ this project is about etc.
 ## Library Load
 
 ```{r}
-library(tidyverse)
-library(httr)
-library(readr)
+library("quarto")
 ```
+
+```{r}
+
+quarto_render("01_load.qmd")
+file.rename(from = "01_load.html",
+            to = "../results/01_load.html")
+```
+
+{{< include 01_load.qmd >}}\

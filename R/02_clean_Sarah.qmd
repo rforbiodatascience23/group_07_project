@@ -61,7 +61,7 @@ data_clean |>
      y = "-log10(p)")
 ```
 
-## Analysis 1: 
+## Analysis 1:
 
 In the first analysis, we want to investigate the gene expression regulation of the genes that were found to be significantly associated to metastatic bladder cancer. The significance was calculated on the basis of a students T-test where the expression of each gene was compared based on if the patients had metastatic cancer or not.
 
@@ -103,7 +103,7 @@ data_clean |>
   ggtitle("Genes Associated with Metastasis in Bladder Cancer")
 ```
 
-## Analysis 2: 
+## Analysis 2:
 
 In this analysis, we're exploring the potential relationship between smoking habits and the altered regulation of gene expression. Each gene in our dataset represents variation in gene expression across different patients. Interestingly, many genes exhibit both up-regulation and down-regulation patterns, which vary among individual patients.
 
