@@ -7,9 +7,11 @@ editor: visual
 ## Loading Packages:
 
 ```{r}
-library(tidyverse)
-library(httr)
-library(readr)
+library("tidyverse")
+library("httr")
+library("readr")
+library("broom")
+library("ggrepel")
 ```
 
 ## Load Data:
@@ -18,6 +20,45 @@ library(readr)
 data <- read_tsv("../data/03_dat_aug.tsv")
 
 data
+```
+
+## Calculation of Average and Individual Log2 Fold Change:
+
+```{r}
+data_clean <- read_tsv("../data/02_dat_clean.tsv")
+data_clean <- data_clean |>
+  group_by(gene) |>
+  mutate(log2_fold_change_avg = log2(mean(gene_expression[Metastasis == 1]) / 
+                                 mean(gene_expression[Metastasis == 0])),
+         log2_fold_change_ind = ifelse(Metastasis == 0,  # If Metastasis is equal to 0
+                                   NA,               # Set log2_fold_change as NA
+                                   log2(gene_expression / 
+                                        mean(gene_expression[Metastasis == 0]))),
+         p_value = t.test(gene_expression ~ Metastasis)$p.value) 
+  
+data_clean
+```
+
+```{r}
+data_clean |> 
+  select(gene, log2_fold_change_avg, p_value) |>
+  unique() |>
+  mutate(log_10_p = -log10(p_value),
+         Significance = case_when(p_value > 0.001 ~ "Not Significant",
+                                    p_value <= 0.001 ~ "Significant")) |> 
+  ggplot(mapping = aes(x = log2_fold_change_avg,
+                       y = log_10_p,
+                       color = Significance)) +
+  geom_point(size = 1, alpha = 0.5) +
+  geom_hline(yintercept=3,
+             linetype="dotted", 
+             color = "black", 
+             size=0.5) +
+  theme(legend.position = "none") + 
+  theme_minimal() +
+  labs(title="Genes Associated with Metastasis in Bladder Cancer", 
+     x = "Log2 Fold Change",
+     y = "-log10(p)")
 ```
 
 ## Analysis 1: 
@@ -35,11 +76,13 @@ $$
 The figure below shows the top 36 most significant genes, and their mean Log2 Fold Change value (circle), together with their lower and upper 95% confidence intervals (bars).
 
 ```{r}
-data |>
-  filter(p_value < 0.002) |>
-  ggplot(aes(x = log2_fold_change,
+data_clean |>
+  group_by(gene) |>
+  filter(Metastasis == 1) |>
+  filter(p_value < 0.001) |>
+  ggplot(aes(x = log2_fold_change_ind,
              y = reorder(gene, 
-                         log2_fold_change, 
+                         log2_fold_change_ind, 
                          FUN = mean))) + 
   stat_summary(fun.data = mean_cl_normal, 
                geom = "point", 
@@ -67,13 +110,31 @@ In this analysis, we're exploring the potential relationship between smoking hab
 To understand this relationship, we aim to investigate the proportion of Current Smokers, Former Smokers, and Non-smokers for each gene. Additionally, we want to compare these proportions based on how the gene expression is regulated (whether a gene is up-regulated or down-regulated).
 
 ```{r}
-data |>
-    filter(p_value < 0.002) |>
-    ggplot(aes(x = gene, 
+data_clean |>
+  mutate(is_metastasis = case_when(Metastasis == 0 ~ "No Metastasis",
+                                   Metastasis == 1 ~ "Metastasis")) |>
+  ggplot(aes(x = "", fill=Smoking)) + 
+  geom_bar(position = "fill") + 
+  facet_wrap(~is_metastasis) + 
+  ggtitle("Proportion of Smokers in samples grouped by Metastasis")
+
+```
+
+```{r}
+data_clean |>
+  filter(Metastasis == 1) |>
+  filter(p_value < 0.001) |>
+  mutate(Regulation = case_when(log2_fold_change_ind > 0 ~ "Samples with upregulation",
+                                 log2_fold_change_ind < 0 ~ "Samples with downregulation",
+                                 log2_fold_change_ind == 0 ~ "Unchanged"),
+         Avg_Regulation = case_when(log2_fold_change_avg < 0 ~ "Avg. downregulation",
+                                    log2_fold_change_avg > 0 ~ "Avg. upregulation")) |>
+    ggplot(aes(y = reorder(gene,
+                         log2_fold_change_ind, 
+                         FUN = mean),
                fill = Smoking)) +
       geom_bar(position = "fill") +
-      facet_wrap(~ Regulation) +
-      labs(x = "Genes", y = "Count") +
-      ggtitle("") +
-      theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, size = 5)) 
+      facet_grid(Avg_Regulation ~ Regulation, scales="free", space = "free") +
+      labs(x = "Percentage", y = "Genes") +
+      ggtitle("") 
 ```
