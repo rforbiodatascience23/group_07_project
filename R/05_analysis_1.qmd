@@ -1,1 +1,60 @@
+---
+title: "05_analysis_1.qmd"
+editor: visual
+format:
+  html:
+    embed-resources: true
+author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)"
+---
+
+## Library Load
+
+```{r}
+library(tidyverse)
+library(readr)
+```
+
+## Data Load
+
+```{r}
+data <- read_tsv("../data/03_dat_aug.tsv")
+data
+```
+
+## Analysis 1
+
+In the first analysis, we want to identify which genes are found to be significantly different expressed in patients with metastatic cancer compared to non-metastatic cancer. Furthermore, we want to investigate if the gene expression is up-regulated of down-regulated.
+
+The significance was calculated on the basis of a Student's T-test where the expression of each gene was compared based on if the patients had metastasis or not.
+
+The Log2 Fold Change for each gene was calculated based on the average gene expression level by comparing samples with metastasis and no metastasis.
+
+These results are shown in a volcano plot:
+
+```{r}
+volcano_plot <- data |> 
+  select(gene, log2_fold_change_avg, p_value) |>
+  unique() |>
+  mutate(log_10_p = -log10(p_value),
+         Significance = case_when(p_value > 0.01 ~ "Not significant",
+                                    p_value <= 0.01 ~ "Significant")) |> 
+  ggplot(mapping = aes(x = log2_fold_change_avg,
+                       y = log_10_p,
+                       color = Significance)) +
+  geom_point(size = 1, alpha = 0.5) +
+  geom_hline(yintercept=2,
+             linetype="dotted", 
+             color = "black", 
+             size=0.5) +
+  theme(legend.position = "none") + 
+  theme_minimal() +
+  labs(title="Genes Associated with Metastasis in Bladder Cancer", 
+       subtitle = "Genes highlighted in turquoise are significant on a significance level of 0.01",
+     x = "Log2 Fold Change",
+     y = "-log10(p)") 
+
+pdf("../results/05_volcano_plot.pdf", height = 5)
+print(volcano_plot)
+dev.off()
+```
 
