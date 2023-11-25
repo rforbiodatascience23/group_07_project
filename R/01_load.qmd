@@ -21,57 +21,26 @@ library(httr)
 If the data folder and subfolder \_raw does not already exist, this code will create it.
 
 ```{r}
-#| output: false
-#| warning: false
-# setting up main directory 
-main_dir <- ".." 
 
-# setting up the data directory
-data_dir <- "data"
-raw_dir <- "data/_raw"
+data_dir <- "../data/"
+raw_dir <- "../data/_raw/"
+metadata_file <- "GSE31684_meta_data.tsv"
+metadata_loc <- "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE31nnn/GSE31684/suppl/GSE31684%5Ftable%5Fof%5Fclinical%5Fdetails.txt.gz"
 
-if (file.exists("data")) { 
-  
-    # specifying the working directory 
-    setwd(file.path(main_dir)) 
-  
-} else { 
-    
-    # create data directory inside main path 
-    dir.create(file.path(main_dir, data_dir))
-  
-    # create _raw directory inside data
-    dir.create(file.path(main_dir, raw_dir))
-  }
+if( !dir.exists(data_dir)){
+  dir.create(path = data_dir)
+}
+
+if( !dir.exists(raw_dir)){
+  dir.create(path = raw_dir)
+}
+
 ```
 
-## Download meta data
+## Download metadata
 
 ```{r}
-#| warning: false
-meta_url <- "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE31nnn/GSE31684/suppl/GSE31684%5Ftable%5Fof%5Fclinical%5Fdetails.txt.gz"
 
-# setting working directory
-setwd(file.path(".."))
-
-
-if (file.exists("data/_raw/GSE31684_meta_data.tsv")){
-  
-  # Unzip and read the contents using tidyverse functions
-  meta_data <- read_tsv("data/_raw/GSE31684_meta_data.tsv",
-                        show_col_types = FALSE)
-  
-} else {
-  # Download the gzipped file
-  GET(meta_url, write_disk("data/_raw/GSE31684_meta_data.tsv"
-                           ))
-  
-  # Unzip and read the contents using tidyverse functions
-  meta_data <- read_tsv(gzfile("data/_raw/GSE31684_meta_data.tsv"),  show_col_types = FALSE)
-}
-                          
-# View the first few rows of the data
-meta_data
 ```
 
 ## Download gene expression data
