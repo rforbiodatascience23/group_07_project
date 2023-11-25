@@ -7,21 +7,37 @@ author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Car
 editor: visual
 ---
 
-## Loading Packages:
+## Load Data
 
 ```{r}
-library(tidyverse) 
-library(readr)
-```
-
-## Load Data:
-
-```{r}
+#| output: false
+#| warning: false
 data <- read_tsv("../data/01_dat_load.tsv")  
 head(data)
 ```
 
-## Clean Data:
+## Clean Metadata
+
+We are creating an overview table of the metadata in the describe doc, and for that we need to clean up the data a bit.
+
+```{r}
+data_names <- data |> 
+  rename(Age_at_RC = `Age at RC`,
+         Survival_Months = `Survival Months`,
+         PLND_Result = `PLND Result`,
+         RC_Grade = `RC Grade`,
+         Nomogram_Score = `Nomogram Score`,
+         Distant_Mets = `Distant Mets`,
+         Local_Recurrence = `Local Recurrence`,
+         Urothelial_Recurrence = `Urothelial Recurrence`,
+         Last_Known_Status = `Last known status`,
+         Post_RC_Chemo = `Post RC_Chemo`,
+         PostChemo_type = `PostChemo type`,
+         Recurrence_Free_Survival_Months = `Recurrence Free Survival Months (Distant and Local)`) |> 
+  select(!ID)
+```
+
+## Clean Data
 
 We select two attributes relevant to our analysis: Metastasis and Smoking, as well as gene expressions
 
