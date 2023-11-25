@@ -53,8 +53,15 @@ volcano_plot <- data |>
      x = "Log2 Fold Change",
      y = "-log10(p)") 
 
-pdf("../results/05_volcano_plot.pdf", height = 5)
+ggsave(
+  filename = "../results/05_volcano_plot.png",
+  plot = volcano_plot,
+  device = "png",
+  height = 5,
+  dpi = 300  
+)
+
+
 print(volcano_plot)
 dev.off()
 ```
-

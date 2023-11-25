@@ -33,19 +33,21 @@ Log 2 fold change T test P value
 
 ### Volcano plot
 
-![](../results/05_volcano_plot.pdf)
+![volcano](../results/05_volcano_plot.png)
 
 ```{r}
-knitr::include_graphics("../results/05_volcano_plot.pdf")
+knitr::include_graphics("../results/05_volcano_plot.png")
 ```
 
-```{r, out.width="0.3\\linewidth", include=TRUE, fig.align="center", fig.cap=c("your caption"), echo=FALSE}
-knitr::include_graphics("../results/06_conf_int_plot.pdf")
-```
+
 
 ## Results
 
 Description / name of genes
+![conf_int](../results/06_conf_int_plot.png)
+```{r}
+knitr::include_graphics("../results/06_conf_int_plot.png")
+```
 
 ## Results
 

@@ -60,7 +60,14 @@ conf_int_plot <- data |>
   ylab("Genes") + 
   ggtitle("Regulation of Genes Associated with Metastasis in Bladder Cancer")
 
-pdf("../results/06_conf_int_plot.pdf", height = 4)
+ggsave(
+  filename = "../results/06_conf_int_plot.png",
+  plot = conf_int_plot,
+  device = "png",
+  height = 4,
+  dpi = 300  
+)
+
 print(conf_int_plot)
 dev.off()
 ```
@@ -84,7 +91,14 @@ smoking_plot <- data |>
       labs(x = "Percentage", y = "Genes") +
       ggtitle("") 
 
-pdf("../results/06_smoking_plot.pdf", height = 4)
+ggsave(
+  filename = "../results/06_smoking_plot.png",
+  plot = smoking_plot,
+  device = "png",
+  height = 4,
+  dpi = 300  
+)
+
 print(smoking_plot)
 dev.off()
 ```
