@@ -1,7 +1,10 @@
 ---
 title: "00_all.qmd"
-format: html
 editor: visual
+format:
+  html:
+    embed-resources: true
+author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)"
 ---
 
 # Project Title
@@ -47,4 +50,4 @@ file.rename(from = "06_analysis_02.html",
 
 {{< include 05_analysis_01.qmd >}}
 
-{{< include 06_analysis_02.qmd >}}\
+{{< include 06_analysis_02.qmd >}} 

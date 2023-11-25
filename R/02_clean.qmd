@@ -1,6 +1,9 @@
 ---
 title: "02_clean.qmd"
-format: html
+format:
+  html:
+    embed-resources: true
+author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)"
 editor: visual
 ---
 
