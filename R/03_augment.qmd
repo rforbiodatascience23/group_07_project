@@ -17,40 +17,32 @@ library(readr)
 ## Data Load
 
 ```{r}
-
 data_clean <- read_tsv("../data/02_dat_clean.tsv")
-
 data_clean
 ```
 
 ## Creating new columns
 
 ```{r}
-
-# Calculate the t-test p value of the gene_expression by comparring metastasis and non-metastasis for each gene:
+# We calculate the t-test p value of the gene_expression by comparring metastasis and non-metastasis for each gene:
 data_aug <- data_clean |>
   group_by(gene) |>
   mutate(p_value = t.test(gene_expression[Metastasis == 1], 
                           gene_expression[Metastasis == 0])$p.value) |>
   mutate(is_significant = case_when(p_value <= 0.01 ~ "Yes",
                                     p_value > 0.01 ~ "No" ))
-data_aug
 ```
 
 ```{r}
-
+# We are adding the Log2-Fold-Change as an average value for each gene, and a Log2-Fold-Change as a value for each sample with metastasis for each gene.
  data_aug_log <- data_aug |>
-   mutate(
-    log2_fold_change = ifelse(
-      Metastasis == 0,  # If Metastasis is equal to 0
-      NA,               # Set log2_fold_change as NA
-      log2(gene_expression / mean(gene_expression[Metastasis == 0]))
-    ))|>
-   filter(Metastasis==1)|>
-  mutate(Regulation = case_when(log2_fold_change > 0 ~ "Upregulated",
-                                 log2_fold_change < 0 ~ "Downregulated",
-                                 log2_fold_change == 0 ~ "Unchanged"))
- 
+   mutate(log2_fold_change_avg = log2(mean(gene_expression[Metastasis == 1]) / 
+                                 mean(gene_expression[Metastasis == 0])),
+          log2_fold_change_sample = ifelse(
+            Metastasis == 0,
+            NA,              
+            log2(gene_expression / mean(gene_expression[Metastasis == 0]))))
+
  data_aug_log
 ```
 

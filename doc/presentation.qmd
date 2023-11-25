@@ -41,4 +41,3 @@ Smoking
 
 -   Over 20 syntax highlighting themes available
 -   Default theme optimized for accessibility
-
