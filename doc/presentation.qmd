@@ -1,0 +1,44 @@
+---
+title: "Investigation of gene expression in patients with metastatic urothelial carcinoma"
+subtitle: "Group 7: Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)"
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: false
+    preview-links: auto
+    logo: images/quarto.png
+    css: styles.css
+    footer: <https://quarto.org>
+    theme: moon
+resources:
+  - demo.pdf
+---
+
+## Introduction & data description
+
+-   Disease,
+
+-   Data description table
+
+```{r}
+
+```
+
+## Methods
+
+Log 2 fold change
+
+## Results {auto-animate="true"}
+
+Volcano plot
+
+Gene expression
+
+Smoking
+
+## Discussion
+
+-   Over 20 syntax highlighting themes available
+-   Default theme optimized for accessibility
+
