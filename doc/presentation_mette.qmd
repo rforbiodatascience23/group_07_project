@@ -4,24 +4,39 @@ subtitle: "Group 7: Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s1
 format:
   revealjs: 
     slide-number: true
-    theme: moon
+    theme: sky
 ---
 
 ## Aim
 
+<p style="text-align: center;">
 *"Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression."*
+</p>
 
 ## Introduction
+##### Bladder cancer
 
--   Disease,
+::: columns
+::: {.column width="40%"}
+-   <span style="font-size: 0.7em;">Approx. 500,000 cases worldwide in 2020.</span>
+-   <span style="font-size: 0.7em;">Smoking is considered to account for half of cases.</span>
+-   <span style="font-size: 0.7em;">Only 5% diagnosed with metastasis in distant body parts. </span>
+:::
 
--   Data description table
-
--   Aim
-
-```{r}
-
+::: {.column width="60%" style="margin-top: 20px;"}
+```{r, out.width = "800px"}
+knitr::include_graphics("external_figures/bladder_cancer.png")
 ```
+:::
+:::
+
+
+<!-- References -->
+::: {.absolute bottom="0;" style="font-size: 0.3em; color: grey;"}
+American Cancer Society. 2023. "What Is Bladder Cancer?" https://www.cancer.org/cancer/types/bladder-cancer/about/what-is-bladder-cancer.html.
+
+Cancer.Net. 2023. "Bladder Cancer: Statistics" https://www.cancer.net/cancer-types/bladder-cancer/statistics
+:::
 
 ## Data description
 
@@ -35,12 +50,10 @@ Log 2 fold change T test P value
 knitr::include_graphics("../results/05_volcano_plot.png")
 ```
 
-
-
 ## Results
 
-Description / name of genes
-![conf_int](../results/06_conf_int_plot.png)
+Description / name of genes ![conf_int](../results/06_conf_int_plot.png)
+
 ```{r}
 knitr::include_graphics("../results/06_conf_int_plot.png")
 ```
