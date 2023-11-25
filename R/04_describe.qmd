@@ -57,11 +57,14 @@ The data that we have is a microarray from 93 bladder cancer patients managed by
 
 -   RC = Radical cystectomy
 
-## Loading package (should be moved to 01_load.qmd)
+## Data load
 
 ```{r}
-library(table1)
+#| warning: false
+data_clean <- read_tsv("../data/02_dat_clean.tsv")
 ```
+
+## 
 
 ## Cleaning the data (should be moved to 02_clean.qmd)
 
@@ -107,5 +110,11 @@ meta_data |>
                                                "Death of disease",
                                                "No evidence of disease/alive"))) |>
   table1(x = formula(~ Age_at_RC + Gender + RC_Histology + RC_Stage + PLND_Result | Last_Known_Status),
+         data = _)
+
+
+data_clean |> 
+  mutate(Metastasis = factor(Metastasis)) |> 
+  table1(x = formula(~ Metastasis | Smoking), 
          data = _)
 ```
