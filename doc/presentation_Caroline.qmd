@@ -1,0 +1,68 @@
+---
+title: "Investigation of gene expression in patients with metastatic urothelial carcinoma"
+author: "Group 7: <br> Yassine Turki (s231735) <br>	Jaime Noguera Piera (s233773) <br> Mette Bøge Pedersen (s194679) <br> Sarah Rosenberg Asmussen (s194689) <br> Caroline Amalie Bastholm Jensen (s213427)"
+format:
+  revealjs: 
+    slide-number: true
+    theme: moon
+
+---
+
+
+## Aim
+
+```{css}
+.title {
+  font-size: 80px !important;
+}
+
+.quarto-title-author-name {
+  font-size: 20px !important;
+}
+
+```
+
+*"Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression."*
+
+## Introduction
+
+-   Disease
+
+-   Data description table
+
+-   Aim
+
+```{r}
+
+```
+
+## Data description
+
+## Methods
+
+Log 2 fold change T test P value
+
+## Results
+
+```{r}
+knitr::include_graphics("../results/05_volcano_plot.png")
+```
+
+
+
+## Results
+
+Description / name of genes
+![conf_int](../results/06_conf_int_plot.png)
+```{r}
+knitr::include_graphics("../results/06_conf_int_plot.png")
+```
+
+## Results
+
+## Discussion
+
+-   Over 20 syntax highlighting themes available
+-   Default theme optimized for accessibility
+
+## Thank you
