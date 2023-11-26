@@ -333,20 +333,19 @@
 <section id="aim" class="slide level2">
 <h2>Aim</h2>
 <p style="text-align: center;">
-<em>“Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression.”</em>
-</p>
+</p><p><em>“Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression.”</em></p>
+<p></p>
 </section>
-<section id="introduction" class="slide level2">
-<h2>Introduction</h2>
-<h5 id="bladder-cancer">Bladder cancer</h5>
+<section id="introduction-bladder-cancer" class="slide level2">
+<h2>Introduction: Bladder cancer</h2>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:60%;">
 <ul>
 <li><span style="font-size: 0.7em;">Approx. 500,000 cases worldwide in 2020.</span></li>
 <li><span style="font-size: 0.7em;">Smoking is considered to account for half of cases.</span></li>
-<li><span style="font-size: 0.7em;">Only 5% diagnosed with metastasis in distant body parts. </span></li>
+<li><span style="font-size: 0.7em;">Only 5% diagnosed with metastasis in distant body parts.</span></li>
 </ul>
-</div><div class="column" style="margin-top: 20px;">
+</div><div class="column" style="width:40%;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="external_figures/bladder_cancer.png" width="800"></p>
@@ -362,32 +361,95 @@
 </section>
 <section id="data-description" class="slide level2">
 <h2>Data description</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li><span style="font-size: 0.7em;">Point 1</span></li>
+<li><span style="font-size: 0.7em;">Point 2</span></li>
+<li><span style="font-size: 0.7em;">Point 3</span></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="../results/04_table_data.png" width="800"></p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="methods" class="slide level2">
 <h2>Methods</h2>
 <p>Log 2 fold change T test P value</p>
+<p><span class="math display">\[
+log2foldchange = \log(\frac{\mu(gene\_expression_{metastasis})}{\mu(gene\_expression_{non-metastasis}})
+\]</span></p>
+<p><span class="math display">\[
+log2foldchange = \log(\frac{gene\_expression_{metastasis}}{\mu(gene\_expression_{non-metastasis}})
+\]</span></p>
+<p>T-TEST</p>
+<p>P-Value (cut)</p>
 </section>
 <section id="results" class="slide level2">
 <h2>Results</h2>
-
-<img data-src="../results/05_volcano_plot.png" width="1050" class="r-stretch"></section>
-<section id="results-1" class="slide level2">
-<h2>Results</h2>
-<p>Description / name of genes <img data-src="../results/06_conf_int_plot.png" alt="conf_int"></p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li><span style="font-size: 0.7em;">Point 1</span></li>
+<li><span style="font-size: 0.7em;">Point 2</span></li>
+<li><span style="font-size: 0.7em;">Point 3</span></li>
+</ul>
+</div><div class="column" style="margin-top: 20px;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="../results/06_conf_int_plot.png" width="1050"></p>
+<p><img data-src="../results/05_volcano_plot.png" width="800"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="results-1" class="slide level2">
+<h2>Results</h2>
+<p>Description / name of genes</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li><span style="font-size: 0.7em;">Point 1</span></li>
+<li><span style="font-size: 0.7em;">Point 2</span></li>
+<li><span style="font-size: 0.7em;">Point 3</span></li>
+</ul>
+</div><div class="column" style="margin-top: 20px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="../results/06_conf_int_plot.png" width="800"></p>
+</div>
+</div>
 </div>
 </div>
 </section>
 <section id="results-2" class="slide level2">
 <h2>Results</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li><span style="font-size: 0.7em;">Point 1</span></li>
+<li><span style="font-size: 0.7em;">Point 2</span></li>
+<li><span style="font-size: 0.7em;">Point 3</span></li>
+</ul>
+</div><div class="column" style="margin-top: 20px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="../results/06_smoking_plot.png" width="800"></p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="discussion" class="slide level2">
 <h2>Discussion</h2>
 <ul>
-<li>Over 20 syntax highlighting themes available</li>
-<li>Default theme optimized for accessibility</li>
+<li>points</li>
+<li>conclusions</li>
+<li>discussion etc</li>
 </ul>
 </section>
 <section id="thank-you" class="slide level2">
@@ -573,9 +635,9 @@
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 2050,
 
-        height: 700,
+        height: 800,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,

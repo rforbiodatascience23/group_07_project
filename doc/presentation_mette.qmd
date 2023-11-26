@@ -5,33 +5,37 @@ format:
   revealjs: 
     slide-number: true
     theme: sky
+    width: 2050
+    height: 800
+    margin: 0.1
 ---
 
 ## Aim
 
 <p style="text-align: center;">
+
 *"Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression."*
+
 </p>
 
-## Introduction
-##### Bladder cancer
+## Introduction:    Bladder cancer
 
 ::: columns
-::: {.column width="40%"}
--   <span style="font-size: 0.7em;">Approx. 500,000 cases worldwide in 2020.</span>
--   <span style="font-size: 0.7em;">Smoking is considered to account for half of cases.</span>
--   <span style="font-size: 0.7em;">Only 5% diagnosed with metastasis in distant body parts. </span>
+::: {.column width="60%"}
+-   [Approx. 500,000 cases worldwide in 2020.]{style="font-size: 0.7em;"}
+-   [Smoking is considered to account for half of cases.]{style="font-size: 0.7em;"}
+-   [Only 5% diagnosed with metastasis in distant body parts. ]{style="font-size: 0.7em;"}
 :::
 
-::: {.column width="60%" style="margin-top: 20px;"}
+::: {.column width="40%"}
 ```{r, out.width = "800px"}
 knitr::include_graphics("external_figures/bladder_cancer.png")
 ```
 :::
 :::
 
-
 <!-- References -->
+
 ::: {.absolute bottom="0;" style="font-size: 0.3em; color: grey;"}
 American Cancer Society. 2023. "What Is Bladder Cancer?" https://www.cancer.org/cancer/types/bladder-cancer/about/what-is-bladder-cancer.html.
 
@@ -40,29 +44,94 @@ Cancer.Net. 2023. "Bladder Cancer: Statistics" https://www.cancer.net/cancer-typ
 
 ## Data description
 
+::: columns
+::: {.column width="60%"}
+-   [Point 1]{style="font-size: 0.7em;"}
+-   [Point 2]{style="font-size: 0.7em;"}
+-   [Point 3 ]{style="font-size: 0.7em;"}
+:::
+
+::: {.column width="40%"}
+```{r, out.width = "800px"}
+knitr::include_graphics("../results/04_table_data.png")
+```
+:::
+:::
+
 ## Methods
 
 Log 2 fold change T test P value
 
+$$
+log2foldchange = \log(\frac{\mu(gene\_expression_{metastasis})}{\mu(gene\_expression_{non-metastasis}})
+$$
+
+$$
+log2foldchange = \log(\frac{gene\_expression_{metastasis}}{\mu(gene\_expression_{non-metastasis}})
+$$
+
+T-TEST
+
+P-Value (cut)
+
 ## Results
 
-```{r}
+::: columns
+::: {.column width="40%"}
+-   [Point 1]{style="font-size: 0.7em;"}
+-   [Point 2]{style="font-size: 0.7em;"}
+-   [Point 3 ]{style="font-size: 0.7em;"}
+:::
+
+::: {.column width="60%" style="margin-top: 20px;"}
+```{r, out.width = "800px"}
 knitr::include_graphics("../results/05_volcano_plot.png")
 ```
+:::
+:::
+
+
 
 ## Results
 
-Description / name of genes ![conf_int](../results/06_conf_int_plot.png)
+Description / name of genes
 
-```{r}
+::: columns
+::: {.column width="40%"}
+-   [Point 1]{style="font-size: 0.7em;"}
+-   [Point 2]{style="font-size: 0.7em;"}
+-   [Point 3 ]{style="font-size: 0.7em;"}
+:::
+
+::: {.column width="60%" style="margin-top: 20px;"}
+```{r, out.width = "800px"}
 knitr::include_graphics("../results/06_conf_int_plot.png")
 ```
+:::
+:::
+
 
 ## Results
+
+::: columns
+::: {.column width="40%"}
+-   [Point 1]{style="font-size: 0.7em;"}
+-   [Point 2]{style="font-size: 0.7em;"}
+-   [Point 3 ]{style="font-size: 0.7em;"}
+:::
+
+::: {.column width="60%" style="margin-top: 20px;"}
+```{r, out.width = "800px"}
+knitr::include_graphics("../results/06_smoking_plot.png")
+```
+:::
+:::
+
 
 ## Discussion
 
--   Over 20 syntax highlighting themes available
--   Default theme optimized for accessibility
+-   points 
+-   conclusions
+-   discussion etc
 
 ## Thank you
