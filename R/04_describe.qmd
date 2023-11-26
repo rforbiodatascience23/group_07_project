@@ -61,60 +61,47 @@ The data that we have is a microarray from 93 bladder cancer patients managed by
 
 ```{r}
 #| warning: false
-data_clean <- read_tsv("../data/02_dat_clean.tsv")
+#| output: false
+data_clean_wide <- read_tsv("../data/02_dat_clean_wide.tsv",
+                            show_col_types = FALSE)
+
+data_clean_wide
 ```
 
-## 
-
-## Cleaning the data (should be moved to 02_clean.qmd)
-
-***NB: Run the 02_clean_Caroline before this, or it doesn't work as intended***
-
-```{r}
-# Nx lymph node status has been written both as NX and Nx, this changes the NX to Nx and leaves the others as is
-# In RC Histology, we should only have TCC and TCC/Squamos, and the TCC/CIS should be TCC
-data_names <- data_names |> 
-  mutate(PLND_Result = case_when(PLND_Result == "NX" ~ "Nx",
-                                 .default = PLND_Result)) |> 
-  mutate(RC_Histology = case_when(RC_Histology == "TCC/CIS" ~ "TCC",
-                                  .default = RC_Histology))
-
-# changing Genders to capital first letter
-data_names_gender <- data_names |> 
-  mutate(Gender = case_when(Gender == "female" ~ "Female",
-                            Gender == "male" ~ "Male"))
-
-# we are removing all the gene expression data, and all these
-# columns end with _at
-meta_data <- data_names_gender |> 
-  select(!ends_with("_at"))
-```
-
-### Adding labels to columns (should be moved to 02_clean.qmd I think)
-
-```{r}
-label(meta_data$Age_at_RC) <- "Age"
-label(meta_data$RC_Histology) <- "Histologic type"
-label(meta_data$RC_Stage) <- "RC stage"
-label(meta_data$PLND_Result) <- "Lymph node status"
-```
+### 
 
 ## Table visualizing meta data
 
 ```{r}
-meta_data |>
-  mutate(Gender = factor(Gender),
-         Last_Known_Status = factor(Last_Known_Status, 
-                                    levels = c("DOC", "DOD", "NED"),
-                                    labels = c("Death of other cause",
-                                               "Death of disease",
-                                               "No evidence of disease/alive"))) |>
-  table1(x = formula(~ Age_at_RC + Gender + RC_Histology + RC_Stage + PLND_Result | Last_Known_Status),
-         data = _)
-
-
-data_clean |> 
+table_data <- data_clean_wide |> 
   mutate(Metastasis = factor(Metastasis)) |> 
-  table1(x = formula(~ Metastasis | Smoking), 
-         data = _)
+  table1(x = formula(~ Smoking + Metastasis), 
+         data = _,
+         caption = "Overview of meta data")
+
+table_data
+```
+
+```{r}
+# this doesn't work
+ggsave(
+  filename = "../results/04_table_data.pdf",
+  plot = table_data,
+  device = "pdf")
+
+print(table_data)
+
+dev.off()
+```
+
+## Counting number of genes
+
+```{r}
+data_clean_wide |> 
+  select(c(GEO, ends_with("_at"))) |> 
+  pivot_longer(cols = -GEO,
+               names_to = "Genes",
+               values_to = "Gene_expression") |> 
+  distinct(Genes) |> 
+  count()
 ```
