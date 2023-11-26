@@ -62,22 +62,34 @@ The data that we have is a microarray from 93 bladder cancer patients managed by
 ```{r}
 #| warning: false
 #| output: false
-data_clean_wide <- read_tsv("../data/02_dat_clean_wide.tsv",
+data_describe <- read_tsv("../data/02_dat_clean_wide.tsv",
                             show_col_types = FALSE)
 
-data_clean_wide
+data_describe
 ```
 
-### 
+## Counting number of genes
+
+```{r}
+number_of_genes <- data_describe |> 
+  select(c(GEO, ends_with("_at"))) |> 
+  pivot_longer(cols = -GEO,
+               names_to = "Genes",
+               values_to = "Gene_expression") |> 
+  distinct(Genes) |> 
+  count()
+
+number_of_genes
+```
 
 ## Table visualizing meta data
 
 ```{r}
-table_data <- data_clean_wide |> 
+table_data <- data_describe |> 
   mutate(Metastasis = factor(Metastasis)) |> 
   table1(x = formula(~ Smoking + Metastasis), 
          data = _,
-         caption = "Overview of meta data")
+         caption = "Overview of number of patients who have metastasis and smoking status")
 
 table_data
 ```
@@ -94,14 +106,4 @@ print(table_data)
 dev.off()
 ```
 
-## Counting number of genes
-
-```{r}
-data_clean_wide |> 
-  select(c(GEO, ends_with("_at"))) |> 
-  pivot_longer(cols = -GEO,
-               names_to = "Genes",
-               values_to = "Gene_expression") |> 
-  distinct(Genes) |> 
-  count()
-```
+## 

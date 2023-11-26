@@ -42,7 +42,8 @@ We would like the data in a long format, where each gene and gene expression has
 ```{r}
 # Making the dataset long:
 data_clean_long <- data_clean |>
-  select(!GEO) |>
+
+  select(!GEO) |> 
   pivot_longer(cols=-c(Metastasis, Smoking),
                names_to = "gene",
                values_to = "gene_expression")   
