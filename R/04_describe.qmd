@@ -17,45 +17,13 @@ The article published based on the data is available here: [PMC](https://www.ncb
 
 *Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer*
 
-A nomogram, also called an alignment chart, uses biologic and clinical variables, such as tumor grade and patient age, to graphically depict a statistical prognostic model that generates a probability of a clinical event, such as cancer recurrence or death, for a given individual([1](https://newsnetwork.mayoclinic.org/discussion/what-the-heck-is-a-nomogram-and-other-medical-research-questions-answered/)).
+A nomogram is a method to graphically depict a statistical prognostic model that generates a probability of a clinical event, such as cancer recurrence or death.
 
-Urothelial carcinoma of the urinary bladder is the fifth most common cancer in the Western World, and represents 3% of cancers diagnosed globally (1).
+Urothelial carcinoma of the urinary bladder is the fifth most common cancer in the Western World, and represents 3% of cancers diagnosed globally.
 
 #### About the data we use
 
-Cancer gene expression data from 93 patients undergoing radical cystectomy (RC) between 1993 and 2004. There are 15 patients with non-MI disease on final pathologic analysis after RC, four had MI disease histologically in tissue obtained at the time of prior transurethral resection (TUR), and the remaining patients had high-risk features (extensive volume of disease, recurrent or BDG-refractory disease).
-
-Lymph node dissection was performed in 77 patients; no patient has metastatic disease at the time of RC. Chemotherapy was administered to 3 patients as neoadjuvant, 16 patients as adjuvant, and 19 patients as salvage for recurrent disease. Case selection was restricted to those with frozen specimens with measurable volume of malignancy and adequate percentage of tumor.
-
-*Neoadjuvant* chemo means the patient was given therapeutic agents before the main treatment.
-
-*Adjuvant* chemo means the therapeutic agents were given after main treatment.
-
-*Salvage* treatment is when the disease does not respond to all other treatments tried, sort of as a last attempt, and is often used for patients with advanced cancer. In our case, it seems to be the patients with recurrent bladder cancer.
-
-#### What they did in the article
-
-The data that we have is a microarray from 93 bladder cancer patients managed by radical cystectomy to determine gene expression patterns associated with clinical and prognostic variables. They compared their results with published bladder cancer microarray datasets comprising of 578 additional patients, and with 49 published gene signatures from multiple cancer types.
-
-### Metadata abbreviations explained
-
--   MI = muscle invasive disease (in stages T2-T4)
-
--   Non-MI disease (in stages Ta/T1/Tis)
-
--   DOD = Death of disease
-
--   DOC = Death of other cause
-
--   NED = No evidence of disease - I believe this means alive and no bladder cancer
-
-**Note: DOD, DOC and NED was after the data collection period was over**
-
--   CIS = Carcinoma in situ
-
--   TCC = Transitional Cell Carcinoma
-
--   RC = Radical cystectomy
+Cancer gene expression data from 93 patients undergoing radical cystectomy (RC) between 1993 and 2004. Lymph node dissection was performed in 77 patients; no patient has metastatic disease at the time of RC. Metastatic disease means that the cancer has spread to a different part of the body than where it started. Case selection was restricted to those with frozen specimens with measurable volume of malignancy and adequate percentage of tumor.
 
 ## Data load
 
@@ -105,5 +73,3 @@ print(table_data)
 
 dev.off()
 ```
-
-## 

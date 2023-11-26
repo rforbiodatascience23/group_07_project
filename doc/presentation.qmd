@@ -1,43 +1,68 @@
 ---
 title: "Investigation of gene expression in patients with metastatic urothelial carcinoma"
-subtitle: "Group 7: Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)"
+author: "Group 7: <br> Yassine Turki (s231735) <br>	Jaime Noguera Piera (s233773) <br> Mette Bøge Pedersen (s194679) <br> Sarah Rosenberg Asmussen (s194689) <br> Caroline Amalie Bastholm Jensen (s213427)"
 format:
   revealjs: 
     slide-number: true
-    chalkboard: 
-      buttons: false
-    preview-links: auto
-    logo: images/quarto.png
-    css: styles.css
-    footer: <https://quarto.org>
     theme: moon
-resources:
-  - demo.pdf
+
 ---
 
-## Introduction & data description
 
--   Disease,
+## Aim
+
+```{css}
+.title {
+  font-size: 80px !important;
+}
+
+.quarto-title-author-name {
+  font-size: 20px !important;
+}
+
+```
+
+*"Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression."*
+
+## Introduction
+
+-   Disease
 
 -   Data description table
+
+-   Aim
 
 ```{r}
 
 ```
 
+## Data description
+
 ## Methods
 
-Log 2 fold change
+Log 2 fold change T test P value
 
-## Results {auto-animate="true"}
+## Results
 
-Volcano plot
+```{r}
+knitr::include_graphics("../results/05_volcano_plot.png")
+```
 
-Gene expression
 
-Smoking
+
+## Results
+
+Description / name of genes
+![conf_int](../results/06_conf_int_plot.png)
+```{r}
+knitr::include_graphics("../results/06_conf_int_plot.png")
+```
+
+## Results
 
 ## Discussion
 
 -   Over 20 syntax highlighting themes available
 -   Default theme optimized for accessibility
+
+## Thank you

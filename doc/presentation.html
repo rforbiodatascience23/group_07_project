@@ -9,6 +9,7 @@
 <link href="presentation_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.475">
 
+  <meta name="author" content="Group 7:   Yassine Turki (s231735)   Jaime Noguera Piera (s233773)   Mette Bøge Pedersen (s194679)   Sarah Rosenberg Asmussen (s194689)   Caroline Amalie Bastholm Jensen (s213427)">
   <title>Investigation of gene expression in patients with metastatic urothelial carcinoma</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -29,12 +30,9 @@
     }
   </style>
   <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto.css" id="theme">
-  <link rel="stylesheet" href="styles.css">
   <link href="presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="presentation_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
-  <link href="presentation_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
@@ -327,31 +325,65 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Investigation of gene expression in patients with metastatic urothelial carcinoma</h1>
-  <p class="subtitle">Group 7: Sarah Rosenberg Asmussen (s194689), Mette Bøge Pedersen (s194679), Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)</p>
 
 <div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Group 7: <br> Yassine Turki (s231735) <br> Jaime Noguera Piera (s233773) <br> Mette Bøge Pedersen (s194679) <br> Sarah Rosenberg Asmussen (s194689) <br> Caroline Amalie Bastholm Jensen (s213427) 
+</div>
+</div>
 </div>
 
 </section>
-<section id="introduction-data-description" class="slide level2">
-<h2>Introduction &amp; data description</h2>
+<section id="aim" class="slide level2">
+<h2>Aim</h2>
+<div class="cell">
+<style type="text/css">
+.title {
+  font-size: 80px !important;
+}
+
+.quarto-title-author-name {
+  font-size: 20px !important;
+}
+
+</style>
+</div>
+<p><em>“Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression.”</em></p>
+</section>
+<section id="introduction" class="slide level2">
+<h2>Introduction</h2>
 <ul>
-<li><p>Disease,</p></li>
+<li><p>Disease</p></li>
 <li><p>Data description table</p></li>
+<li><p>Aim</p></li>
 </ul>
 <div class="cell">
 
 </div>
 </section>
+<section id="data-description" class="slide level2">
+<h2>Data description</h2>
+</section>
 <section id="methods" class="slide level2">
 <h2>Methods</h2>
-<p>Log 2 fold change</p>
+<p>Log 2 fold change T test P value</p>
 </section>
-<section id="results" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Results</h2>
-<p>Volcano plot</p>
-<p>Gene expression</p>
-<p>Smoking</p>
+<section id="results" class="slide level2">
+<h2>Results</h2>
+
+<img data-src="../results/05_volcano_plot.png" width="1050" class="r-stretch"></section>
+<section id="results-1" class="slide level2">
+<h2>Results</h2>
+<p>Description / name of genes <img data-src="../results/06_conf_int_plot.png" alt="conf_int"></p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="../results/06_conf_int_plot.png" width="1050"></p>
+</div>
+</div>
+</section>
+<section id="results-2" class="slide level2">
+<h2>Results</h2>
 </section>
 <section id="discussion" class="slide level2">
 <h2>Discussion</h2>
@@ -359,9 +391,11 @@
 <li>Over 20 syntax highlighting themes available</li>
 <li>Default theme optimized for accessibility</li>
 </ul>
+</section>
+<section id="thank-you" class="slide level2">
+<h2>Thank you</h2>
+<div class="footer footer-default">
 
-<img src="images/quarto.png" class="slide-logo r-stretch"><div class="footer footer-default">
-<p><a href="https://quarto.org" class="uri">https://quarto.org</a></p>
 </div>
 </section>
     </div>
@@ -374,7 +408,6 @@
   <script src="presentation_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="presentation_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="presentation_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="presentation_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -390,14 +423,13 @@
       // https://revealjs.com/config/
       Reveal.initialize({
 'controlsAuto': true,
-'previewLinksAuto': true,
+'previewLinksAuto': false,
 'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'chalkboard': {"buttons":false},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -568,7 +600,7 @@
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
           RevealMath,
           RevealNotes,
