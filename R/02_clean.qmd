@@ -7,33 +7,42 @@ author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Car
 editor: visual
 ---
 
-## Loading Packages:
+## Load Data
 
 ```{r}
-library(tidyverse) 
-library(readr)
-```
-
-## Load Data:
-
-```{r}
+#| output: false
+#| warning: false
 data <- read_tsv("../data/01_dat_load.tsv")  
 head(data)
 ```
 
-## Clean Data:
+## Clean Metadata
 
-We select two attributes relevant to our analysis: Metastasis and Smoking, as well as gene expressions
+We are creating an overview table of the metadata in the describe doc, and for that we need to clean up the data a bit. We select two attributes relevant to our analysis: Metastasis and Smoking, as well as gene expressions
 
 ```{r}
 # Cleaning the data: 
 data_clean <- data |> 
   relocate(Metastasis, Smoking) |>   
-  select(!GEO:Cluster)
+  select(!ID:Cluster)
 
+data_clean
+```
 
+## Writing the data to be used in 04_describe
+
+```{r}
+write_tsv(data_clean, "../data/02_dat_clean_wide.tsv")
+```
+
+## Long data format
+
+We would like the data in a long format, where each gene and gene expression has it's own row, for the following augmentation and analysis.
+
+```{r}
 # Making the dataset long:
-data_clean_long <- data_clean |>    
+data_clean_long <- data_clean |>
+  select(!GEO)
   pivot_longer(cols=-c(Metastasis, Smoking),
                names_to = "gene",
                values_to = "gene_expression")   
@@ -44,7 +53,6 @@ data_clean_long
 We would like to drop the genes with no variability, as they will not provide useful information to our analysis.
 
 ```{r}
-
 # Selecting genes with different average gene expression based on the metastatic and non-metastatic cases:
 data_clean_long <- data_clean_long |>
   group_by(gene) |>
