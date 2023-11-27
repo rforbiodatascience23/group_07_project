@@ -13,18 +13,16 @@ format:
 ## Aim
 
 <p style="text-align: center;">
-
 *"Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression."*
-
 </p>
 
-## Introduction:    Bladder cancer
+## Introduction: Bladder cancer
 
 ::: columns
 ::: {.column width="60%"}
 -   [Approx. 500,000 cases worldwide in 2020.]{style="font-size: 0.7em;"}
 -   [Smoking is considered to account for half of cases.]{style="font-size: 0.7em;"}
--   [Only 5% diagnosed with metastasis in distant body parts. ]{style="font-size: 0.7em;"}
+-   [Only 5% diagnosed with metastasis in distant body parts.]{style="font-size: 0.7em;"}
 :::
 
 ::: {.column width="40%"}
@@ -44,21 +42,45 @@ Cancer.Net. 2023. "Bladder Cancer: Statistics" https://www.cancer.net/cancer-typ
 
 ## Data description
 
-::: columns
-::: {.column width="60%"}
--   [Point 1]{style="font-size: 0.7em;"}
--   [Point 2]{style="font-size: 0.7em;"}
--   [Point 3 ]{style="font-size: 0.7em;"}
+:::: {.columns}
+
+::: {.column width="50%"}
+- 93 patients undergoing radical cystectomy
+- Data collected from 1993 to 2004
+- Only metadata we use is the smoking status and metastasis
+- Total number of genes is 54,675
+- After sd 48,932
 :::
 
-::: {.column width="40%"}
-```{r, out.width = "800px"}
-knitr::include_graphics("../results/04_table_data.png")
+::: {.column width="50%"}
+```{r}
+#| echo: false
+library(table1)
+library(tidyverse)
+
+data_describe <- read_tsv("../data/04_dat_desc.tsv",
+                            show_col_types = FALSE)
+```
+
+```{r, out.width = "2000px"}
+data_describe |> 
+  mutate(Metastasis = factor(Metastasis)) |> 
+  table1(x = formula(~ Smoking + Metastasis), 
+         data = _,
+         caption = "Overview of number of patients who have metastasis and smoking status")
 ```
 :::
-:::
+
+::::
 
 ## Methods
+
+#### Data cleaning
+
+
+## Methods
+
+#### Data augmentation
 
 Log 2 fold change T test P value
 
@@ -80,7 +102,7 @@ P-Value (cut)
 ::: {.column width="40%"}
 -   [Point 1]{style="font-size: 0.7em;"}
 -   [Point 2]{style="font-size: 0.7em;"}
--   [Point 3 ]{style="font-size: 0.7em;"}
+-   [Point 3]{style="font-size: 0.7em;"}
 :::
 
 ::: {.column width="60%" style="margin-top: 20px;"}
@@ -90,8 +112,6 @@ knitr::include_graphics("../results/05_volcano_plot.png")
 :::
 :::
 
-
-
 ## Results
 
 Description / name of genes
@@ -100,7 +120,7 @@ Description / name of genes
 ::: {.column width="40%"}
 -   [Point 1]{style="font-size: 0.7em;"}
 -   [Point 2]{style="font-size: 0.7em;"}
--   [Point 3 ]{style="font-size: 0.7em;"}
+-   [Point 3]{style="font-size: 0.7em;"}
 :::
 
 ::: {.column width="60%" style="margin-top: 20px;"}
@@ -110,28 +130,37 @@ knitr::include_graphics("../results/06_conf_int_plot.png")
 :::
 :::
 
-
 ## Results
 
+#### Aim of analysis 2B: Investigation of the effect of smoking in relation to gene expression
+
 ::: columns
-::: {.column width="40%"}
--   [Point 1]{style="font-size: 0.7em;"}
--   [Point 2]{style="font-size: 0.7em;"}
--   [Point 3 ]{style="font-size: 0.7em;"}
+::: {.column width="50%"}
+-   [Individual log2fold change for patients with metastasis]{style="font-size: 0.7em;"}
+-   [Count of Current Smokers, Former Smokers, and Non-smokers for each gene]{style="font-size: 0.7em;"}
+-   [Group top 13 most significant genes (p \< 0.01) based on up or down regulation being risk factor]{style="font-size: 0.7em;"} <br><br>
+-   [Current smokers for all gene regulation of risk.]{style="font-size: 0.7em;"}
+-   [More metastatic patients with genes expression being risk]{style="font-size: 0.7em;"}
+-   [Small sample size (N=93).]{style="font-size: 0.7em;"}
 :::
 
-::: {.column width="60%" style="margin-top: 20px;"}
+::: {.column width="50%" style="margin-top: 0px;"}
 ```{r, out.width = "800px"}
 knitr::include_graphics("../results/06_smoking_plot.png")
 ```
 :::
 :::
 
-
 ## Discussion
 
--   points 
--   conclusions
--   discussion etc
+-   Out of X genes, 286 genes are significantly up or downregulated in patients with metastasis.
 
-## Thank you
+-   Current smoking seem to have a relation to gene regulation inducing metastasis in patients with urothelial carcinoma.
+
+    -   Statistical test on relation to smoking.
+    
+<br>
+
+-   Small sample size (N=93). More data will increase statistical power.
+
+-   Include more metadata to the analysis to expand the aim.

@@ -317,6 +317,8 @@
       margin-right: 0; 
     }
   </style>
+  
+  <link href="presentation_mette_files/libs/table1-1.0/table1_defaults.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -333,8 +335,8 @@
 <section id="aim" class="slide level2">
 <h2>Aim</h2>
 <p style="text-align: center;">
-</p><p><em>“Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression.”</em></p>
-<p></p>
+<em>“Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression.”</em>
+</p>
 </section>
 <section id="introduction-bladder-cancer" class="slide level2">
 <h2>Introduction: Bladder cancer</h2>
@@ -362,16 +364,61 @@
 <section id="data-description" class="slide level2">
 <h2>Data description</h2>
 <div class="columns">
-<div class="column" style="width:60%;">
+<div class="column" style="width:50%;">
 <ul>
-<li><span style="font-size: 0.7em;">Point 1</span></li>
-<li><span style="font-size: 0.7em;">Point 2</span></li>
-<li><span style="font-size: 0.7em;">Point 3</span></li>
+<li>93 patients undergoing radical cystectomy</li>
+<li>Data collected from 1993 to 2004</li>
+<li>Only metadata we use is the smoking status and metastasis</li>
+<li>Total number of genes is 54,675</li>
+<li>After sd 48,932</li>
 </ul>
-</div><div class="column" style="width:40%;">
+</div><div class="column" style="width:50%;">
+<div class="cell">
+
+</div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="../results/04_table_data.png" width="800"></p>
+
+<div class="Rtable1"><table class="Rtable1"><caption>Overview of number of patients who have metastasis and smoking status</caption>
+
+<thead>
+<tr>
+<th class="rowlabel firstrow lastrow"></th>
+<th class="firstrow lastrow"><span class="stratlabel">Overall<br><span class="stratn">(N=93)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="rowlabel firstrow">Smoking</td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Current</td>
+<td>19 (20.4%)</td>
+</tr>
+<tr>
+<td class="rowlabel">Former</td>
+<td>56 (60.2%)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Never</td>
+<td class="lastrow">18 (19.4%)</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">Metastasis</td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">0</td>
+<td>57 (61.3%)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">1</td>
+<td class="lastrow">36 (38.7%)</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -379,6 +426,11 @@
 </section>
 <section id="methods" class="slide level2">
 <h2>Methods</h2>
+<h4 id="data-cleaning">Data cleaning</h4>
+</section>
+<section id="methods-1" class="slide level2">
+<h2>Methods</h2>
+<h4 id="data-augmentation">Data augmentation</h4>
 <p>Log 2 fold change T test P value</p>
 <p><span class="math display">\[
 log2foldchange = \log(\frac{\mu(gene\_expression_{metastasis})}{\mu(gene\_expression_{non-metastasis}})
@@ -428,14 +480,18 @@ log2foldchange = \log(\frac{gene\_expression_{metastasis}}{\mu(gene\_expression_
 </section>
 <section id="results-2" class="slide level2">
 <h2>Results</h2>
+<h4 id="aim-of-analysis-2b-investigation-of-the-effect-of-smoking-in-relation-to-gene-expression">Aim of analysis 2B: Investigation of the effect of smoking in relation to gene expression</h4>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:50%;">
 <ul>
-<li><span style="font-size: 0.7em;">Point 1</span></li>
-<li><span style="font-size: 0.7em;">Point 2</span></li>
-<li><span style="font-size: 0.7em;">Point 3</span></li>
+<li><span style="font-size: 0.7em;">Individual log2fold change for patients with metastasis</span></li>
+<li><span style="font-size: 0.7em;">Count of Current Smokers, Former Smokers, and Non-smokers for each gene</span></li>
+<li><span style="font-size: 0.7em;">Group top 13 most significant genes (p &lt; 0.01) based on up or down regulation being risk factor</span> <br><br></li>
+<li><span style="font-size: 0.7em;">Current smokers for all gene regulation of risk.</span></li>
+<li><span style="font-size: 0.7em;">More metastatic patients with genes expression being risk</span></li>
+<li><span style="font-size: 0.7em;">Small sample size (N=93).</span></li>
 </ul>
-</div><div class="column" style="margin-top: 20px;">
+</div><div class="column" style="margin-top: 0px;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="../results/06_smoking_plot.png" width="800"></p>
@@ -447,13 +503,17 @@ log2foldchange = \log(\frac{gene\_expression_{metastasis}}{\mu(gene\_expression_
 <section id="discussion" class="slide level2">
 <h2>Discussion</h2>
 <ul>
-<li>points</li>
-<li>conclusions</li>
-<li>discussion etc</li>
+<li><p>Out of X genes, 286 genes are significantly up or downregulated in patients with metastasis.</p></li>
+<li><p>Current smoking seem to have a relation to gene regulation inducing metastasis in patients with urothelial carcinoma.</p>
+<ul>
+<li>Statistical test on relation to smoking.</li>
+</ul></li>
 </ul>
-</section>
-<section id="thank-you" class="slide level2">
-<h2>Thank you</h2>
+<p><br></p>
+<ul>
+<li><p>Small sample size (N=93). More data will increase statistical power.</p></li>
+<li><p>Include more metadata to the analysis to expand the aim.</p></li>
+</ul>
 <div class="footer footer-default">
 
 </div>
