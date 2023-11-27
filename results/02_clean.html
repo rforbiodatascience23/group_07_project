@@ -2629,15 +2629,14 @@ vertical-align: -.125em;
 
 </header>
 
-<section id="loading-packages" class="level2">
-<h2 class="anchored" data-anchor-id="loading-packages">Loading Packages:</h2>
+<section id="load-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-data">Load Data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.2     ✔ readr     2.1.4
 ✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ ggplot2   3.4.3     ✔ tibble    3.2.1
 ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -2645,61 +2644,65 @@ vertical-align: -.125em;
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;../data/01_dat_load.tsv&quot;</span>)  </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="load-data" class="level2">
-<h2 class="anchored" data-anchor-id="load-data">Load Data:</h2>
+<section id="clean-metadata" class="level2">
+<h2 class="anchored" data-anchor-id="clean-metadata">Clean Metadata</h2>
+<p>We are creating an overview table of the metadata in the describe doc, and for that we need to clean up the data a bit. We select two attributes relevant to our analysis: Metastasis and Smoking, as well as gene expressions</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;../data/01_dat_load.tsv&quot;</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 93 Columns: 54699
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;\t&quot;
-chr    (15): GEO, ID, Gender, PreOpClinStage, RC_Stage, RC_Histology, PLND R...
-dbl (54684): Age at RC, Survival Months, Nomogram Score, Distant Mets, Local...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleaning the data: </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data_clean <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Metastasis, Smoking) <span class="sc">|&gt;</span>   </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span>ID<span class="sc">:</span>Cluster)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>data_clean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 54,699
-  GEO       ID    Gender PreOpClinStage `Age at RC` `Survival Months` RC_Stage
-  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt; &lt;chr&gt;   
-1 GSM786491 1_pT2 male   T3                    64.1            104.   pT2     
-2 GSM786492 2_pT2 male   T2                    62.1             13.2  pT2     
-3 GSM786493 3_pT2 female T2                    66.0             19.8  pT2     
-4 GSM786494 4_pT4 male   T2                    56.1             16.4  pT4     
-5 GSM786495 5_pT4 female T3                    68               13.1  pT4     
-6 GSM786496 6_pT3 male   T2                    69.9              4.44 pT3     
-# ℹ 54,692 more variables: RC_Histology &lt;chr&gt;, `PLND Result` &lt;chr&gt;,
-#   `RC Grade` &lt;chr&gt;, `Nomogram Score` &lt;dbl&gt;, `Distant Mets` &lt;dbl&gt;,
-#   `Local Recurrence` &lt;dbl&gt;, `Urothelial Recurrence` &lt;dbl&gt;, Metastasis &lt;dbl&gt;,
-#   `Last known status` &lt;chr&gt;, PreRC_Chemo &lt;chr&gt;, `Post RC_Chemo` &lt;chr&gt;,
-#   `PostChemo type` &lt;chr&gt;, Smoking &lt;chr&gt;, `SmokingPack-Years` &lt;chr&gt;,
-#   `Recurrence Free Survival Months (Distant and Local)` &lt;dbl&gt;,
-#   `Recurrence/DOD` &lt;chr&gt;, Cluster &lt;dbl&gt;, `1007_s_at` &lt;dbl&gt;, …</code></pre>
+<pre><code># A tibble: 93 × 54,678
+   Metastasis Smoking GEO    `1007_s_at` `1053_at` `117_at` `121_at` `1255_g_at`
+        &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+ 1          0 Former  GSM78…        6.80      8.39     3.89     5.43        2.23
+ 2          1 Never   GSM78…       11.3       8.16     4.65     5.43        2.23
+ 3          0 Current GSM78…       11.0       8.01     3.73     5.42        2.23
+ 4          1 Former  GSM78…        8.95      8.15     4.19     5.49        2.23
+ 5          0 Former  GSM78…       11.7       8.16     3.53     5.43        2.23
+ 6          1 Former  GSM78…       11.7       7.99     3.73     5.43        2.23
+ 7          0 Current GSM78…        9.88      7.96     3.80     5.43        2.23
+ 8          0 Never   GSM78…        9.61      8.78     4.11     5.61        2.23
+ 9          1 Former  GSM78…       11.2       9.00     3.93     5.43        2.23
+10          0 Former  GSM78…        9.69      9.54     8.88     5.43        2.23
+# ℹ 83 more rows
+# ℹ 54,670 more variables: `1294_at` &lt;dbl&gt;, `1316_at` &lt;dbl&gt;, `1320_at` &lt;dbl&gt;,
+#   `1405_i_at` &lt;dbl&gt;, `1431_at` &lt;dbl&gt;, `1438_at` &lt;dbl&gt;, `1487_at` &lt;dbl&gt;,
+#   `1494_f_at` &lt;dbl&gt;, `1552256_a_at` &lt;dbl&gt;, `1552257_a_at` &lt;dbl&gt;,
+#   `1552258_at` &lt;dbl&gt;, `1552261_at` &lt;dbl&gt;, `1552263_at` &lt;dbl&gt;,
+#   `1552264_a_at` &lt;dbl&gt;, `1552266_at` &lt;dbl&gt;, `1552269_at` &lt;dbl&gt;,
+#   `1552271_at` &lt;dbl&gt;, `1552272_a_at` &lt;dbl&gt;, `1552274_at` &lt;dbl&gt;, …</code></pre>
 </div>
 </div>
 </section>
-<section id="clean-data" class="level2">
-<h2 class="anchored" data-anchor-id="clean-data">Clean Data:</h2>
-<p>We select two attributes relevant to our analysis: Metastasis and Smoking, as well as gene expressions</p>
+<section id="writing-the-data-to-be-used-in-04_describe" class="level2">
+<h2 class="anchored" data-anchor-id="writing-the-data-to-be-used-in-04_describe">Writing the data to be used in 04_describe</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleaning the data: </span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_clean <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Metastasis, Smoking) <span class="sc">|&gt;</span>   </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span>GEO<span class="sc">:</span>Cluster)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Making the dataset long:</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>data_clean_long <span class="ot">&lt;-</span> data_clean <span class="sc">|&gt;</span>    </span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="sc">-</span><span class="fu">c</span>(Metastasis, Smoking),</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;gene&quot;</span>,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;gene_expression&quot;</span>)   </span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>data_clean_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(data_clean, <span class="st">&quot;../data/02_dat_clean_wide.tsv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="long-data-format" class="level2">
+<h2 class="anchored" data-anchor-id="long-data-format">Long data format</h2>
+<p>We would like the data in a long format, where each gene and gene expression has it’s own row, for the following augmentation and analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Making the dataset long:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data_clean_long <span class="ot">&lt;-</span> data_clean <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span>GEO) <span class="sc">|&gt;</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="sc">-</span><span class="fu">c</span>(Metastasis, Smoking),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;gene&quot;</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;gene_expression&quot;</span>)   </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>data_clean_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5,084,775 × 4
    Metastasis Smoking gene      gene_expression
@@ -2719,13 +2722,13 @@ dbl (54684): Age at RC, Survival Months, Nomogram Score, Distant Mets, Local...
 </div>
 <p>We would like to drop the genes with no variability, as they will not provide useful information to our analysis.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecting genes with different average gene expression based on the metastatic and non-metastatic cases:</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>data_clean_long <span class="ot">&lt;-</span> data_clean_long <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gene) <span class="sc">|&gt;</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">sd</span>(gene_expression)<span class="sc">!=</span><span class="dv">0</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>data_clean_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecting genes with different average gene expression based on the metastatic and non-metastatic cases:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_clean_long <span class="ot">&lt;-</span> data_clean_long <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gene) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">sd</span>(gene_expression)<span class="sc">!=</span><span class="dv">0</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>data_clean_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,550,676 × 4
 # Groups:   gene [48,932]
@@ -2748,7 +2751,7 @@ dbl (54684): Age at RC, Survival Months, Nomogram Score, Distant Mets, Local...
 <section id="writing-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="writing-the-data">Writing the data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(data_clean_long, <span class="st">&quot;../data/02_dat_clean.tsv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(data_clean_long, <span class="st">&quot;../data/02_dat_clean.tsv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 

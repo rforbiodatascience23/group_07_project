@@ -1,5 +1,5 @@
 ---
-title: "03_augment.qmd"
+title: "Augment"
 editor: visual
 format:
   html:
@@ -7,10 +7,12 @@ format:
 author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)"
 ---
 
-## Data Load
+### Data Load
 
 ```{r}
-#|echo:false
+#| output: false
+#| warning: false
+#| echo: false
 library(tidyverse)
 ```
 
@@ -19,7 +21,7 @@ data_clean <- read_tsv("../data/02_dat_clean.tsv")
 data_clean
 ```
 
-## Creating new columns
+### Creating new columns
 
 ```{r}
 # We calculate the t-test p value of the gene_expression by comparring metastasis and non-metastasis for each gene:
@@ -44,7 +46,7 @@ data_aug <- data_clean |>
  data_aug_log
 ```
 
-## Write the data
+### Write the data
 
 ```{r}
 write_tsv(data_aug_log, "../data/03_dat_aug.tsv")

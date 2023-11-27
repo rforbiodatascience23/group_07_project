@@ -1,5 +1,5 @@
 ---
-title: "02_clean.qmd"
+title: "Clean"
 format:
   html:
     embed-resources: true
@@ -7,21 +7,22 @@ author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Car
 editor: visual
 ---
 
-## Load Data
+### Load Data
 
 ```{r}
-#|echo: false
+#| output: false
+#| warning: false
+#| echo: false
 library(tidyverse)
 ```
 
 ```{r}
-#| output: false
 #| warning: false
 data <- read_tsv("../data/01_dat_load.tsv")  
 head(data)
 ```
 
-## Clean Metadata
+### Clean Metadata
 
 We are creating an overview table of the metadata in the describe doc, and for that we need to clean up the data a bit. We select two attributes relevant to our analysis: Metastasis and Smoking, as well as gene expressions
 
@@ -34,13 +35,13 @@ data_clean <- data |>
 data_clean
 ```
 
-## Writing the data to be used in 04_describe
+### Writing the data to be used in 04_describe
 
 ```{r}
 write_tsv(data_clean, "../data/02_dat_clean_wide.tsv")
 ```
 
-## Long data format
+### Long data format
 
 We would like the data in a long format, where each gene and gene expression has it's own row, for the following augmentation and analysis.
 
@@ -68,7 +69,7 @@ data_clean_long <- data_clean_long |>
 data_clean_long
 ```
 
-## Writing the data
+### Writing the data
 
 ```{r}
 write_tsv(data_clean_long, "../data/02_dat_clean.tsv")

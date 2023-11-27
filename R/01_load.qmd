@@ -1,5 +1,5 @@
 ---
-title: "01_load.qmd"
+title: "Load"
 editor: visual
 format:
   html:
@@ -7,17 +7,16 @@ format:
 author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)"
 ---
 
-## Load packages
+## 
 
 ```{r}
 #| output: false
 #| warning: false
 #| echo: false
 library(tidyverse)
-library(table1)
 ```
 
-## Creating data folder if not already exists
+### Creating data folder if not already exists
 
 If the data folder and subfolder \_raw does not already exist, this code will create it.
 
@@ -36,7 +35,7 @@ if( !dir.exists(raw_dir)){
 
 ```
 
-## Download metadata
+### Download metadata
 
 ```{r}
 
@@ -53,7 +52,7 @@ meta_data <- read_tsv(gzfile("../data/_raw/GSE31684_meta_data.tsv"),  show_col_t
 meta_data
 ```
 
-## Download gene expression data
+### Download gene expression data
 
 ```{r}
 # creating url

@@ -1,5 +1,5 @@
 ---
-title: "06_analysis_2.qmd"
+title: "Analysis 2"
 editor: visual
 format:
   html:
@@ -7,14 +7,17 @@ format:
 author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)"
 ---
 
-## Library Load
+## 
 
 ```{r}
+#| output: false
+#| warning: false
+#| echo: false
 library(tidyverse)
 library(readr)
 ```
 
-## Data Load
+### Data Load
 
 ```{r}
 data <- read_tsv("../data/03_dat_aug.tsv")
@@ -33,7 +36,7 @@ $$
 
 This figure shows the top 13 most significant genes, and their average Log2 Fold Change value (circle), together with their lower and upper 95% confidence intervals (bars).
 
-**Conclusion:**
+**Conclusion of second analysis:**
 
 From this figure, we can see that 5 genes are slightly up-regulated, and the rest 8 genes are down-regulated. For the gene 206561_s\_at, being the most down-regulated, we also observe larger variability across these samples which is reflected in a larger error-bar.
 
