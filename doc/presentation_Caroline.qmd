@@ -5,9 +5,8 @@ format:
   revealjs: 
     slide-number: true
     theme: moon
-
+    footer: "Group 7 Project: R for Bio Data Science"
 ---
-
 
 ## Aim
 
@@ -36,7 +35,38 @@ format:
 
 ```
 
-## Data description
+## Data description {.smaller}
+
+:::: {.columns}
+
+::: {.column width="60%"}
+- 93 patients undergoing radical cystectomy
+- Data collected from 1993 to 2004
+- Only metadata we use is the smoking status and metastasis
+- Total number of genes is 54,675
+- After sd 48,932
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+library(table1)
+library(tidyverse)
+
+data_describe <- read_tsv("../data/04_dat_desc.tsv",
+                            show_col_types = FALSE)
+```
+
+```{r}
+data_describe |> 
+  mutate(Metastasis = factor(Metastasis)) |> 
+  table1(x = formula(~ Smoking + Metastasis), 
+         data = _,
+         caption = "Overview of number of patients who have metastasis and smoking status")
+```
+:::
+
+::::
 
 ## Methods
 
@@ -48,12 +78,10 @@ Log 2 fold change T test P value
 knitr::include_graphics("../results/05_volcano_plot.png")
 ```
 
-
-
 ## Results
 
-Description / name of genes
-![conf_int](../results/06_conf_int_plot.png)
+Description / name of genes ![conf_int](../results/06_conf_int_plot.png)
+
 ```{r}
 knitr::include_graphics("../results/06_conf_int_plot.png")
 ```
