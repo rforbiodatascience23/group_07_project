@@ -46,11 +46,11 @@ Cancer.Net. 2023. "Bladder Cancer: Statistics" https://www.cancer.net/cancer-typ
 :::: {.columns}
 
 ::: {.column width="60%"}
-- 93 patients undergoing radical cystectomy
-- Data collected from 1993 to 2004
-- Only metadata we use is the smoking status and metastasis
-- Total number of genes is 54,675
-- After sd 48,932
+- [93 patients undergoing radical cystectomy]{style="font-size: 0.7em;"}
+- [Data collected from 1993 to 2004]{style="font-size: 0.7em;"}
+- [Only metadata we use is the smoking status and metastasis]{style="font-size: 0.7em;"}
+- [Total number of genes is 54,675]{style="font-size: 0.7em;"}
+- [After sd 48,932]{style="font-size: 0.7em;"}
 :::
 
 ::: {.column width="40%"}
