@@ -1,13 +1,11 @@
 ---
 title: "Group 7 Project"
-subtitle: "05_analysis_1"
 editor: visual
 format:
   html:
     embed-resources: true
 author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)"
 ---
-
 
 ```{r}
 #| output: false
@@ -17,7 +15,7 @@ library(tidyverse)
 library(readr)
 ```
 
-## Analysis 1
+## 05_analysis_1
 
 ```{r}
 data <- read_tsv(gzfile("../data/03_dat_aug.tsv.gz"),

@@ -15,7 +15,7 @@ library(tidyverse)
 library(readr)
 ```
 
-## Analysis 2
+## 06_analysis_2
 
 ```{r}
 data <- read_tsv(gzfile("../data/03_dat_aug.tsv.gz"),
@@ -23,7 +23,7 @@ data <- read_tsv(gzfile("../data/03_dat_aug.tsv.gz"),
 data
 ```
 
-#### Description 
+#### Description
 
 In this analysis, we want to explore the potential relationship between smoking habits and the altered regulation of gene expression. Each gene in our data set represents variation in gene expression across different patients. Interestingly, many genes exhibit both up-regulation and down-regulation patterns, which vary among individual patients.
 
