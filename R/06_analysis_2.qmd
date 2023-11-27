@@ -23,7 +23,7 @@ data
 
 ## Analysis 2
 
-In this analysis, we want to explore the potential relationship between smoking habits and the altered regulation of gene expression. Each gene in our dataset represents variation in gene expression across different patients. Interestingly, many genes exhibit both up-regulation and down-regulation patterns, which vary among individual patients.
+In this analysis, we want to explore the potential relationship between smoking habits and the altered regulation of gene expression. Each gene in our data set represents variation in gene expression across different patients. Interestingly, many genes exhibit both up-regulation and down-regulation patterns, which vary among individual patients.
 
 We select the top 13 most significant genes from our previous analysis. To further investigate the regulation of gene expression for each patient with metastasis, we calculate a Log2 Fold Change value for each patient. This was calculated by comparing the gene expression in samples with metastasis to the average gene expression across samples without metastasis for each gene. The formula for a specific gene in observation X is:
 
@@ -31,7 +31,11 @@ $$
 \text{Log2 Fold Change}(X) = \log_2\left(\frac{\text{gene expression}_{\text{metastasis}}(X)}{\text{mean}(\text{gene expression}_{\text{no-metastasis}})}\right)
 $$
 
-This figure shows the top 13 most significant genes, and their mean Log2 Fold Change value (circle), together with their lower and upper 95% confidence intervals (bars).
+This figure shows the top 13 most significant genes, and their average Log2 Fold Change value (circle), together with their lower and upper 95% confidence intervals (bars).
+
+**Conclusion:**
+
+From this figure, we can see that 5 genes are slightly up-regulated, and the rest 8 genes are down-regulated. For the gene 206561_s_at, being the most down-regulated, we also observe larger variability across these samples which is reflected in a larger error-bar.
 
 ```{r}
 conf_int_plot <- data |>

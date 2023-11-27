@@ -21,11 +21,6 @@ data <- read_tsv("../data/03_dat_aug.tsv")
 data
 ```
 
-```{r}
-data |>
-  group_by(gene) 
-```
-
 ## Analysis 1
 
 In the first analysis, we want to identify which genes are found to be significantly different expressed in patients with metastatic cancer compared to non-metastatic cancer. Furthermore, we want to investigate if the gene expression is up-regulated of down-regulated.
