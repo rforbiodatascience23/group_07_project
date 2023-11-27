@@ -59,7 +59,7 @@ Cancer.Net. 2023. "Bladder Cancer: Statistics" https://www.cancer.net/cancer-typ
 library(table1)
 library(tidyverse)
 
-data_describe <- read_tsv("../data/04_dat_desc.tsv",
+data_describe <- read_tsv("../data/04_dat_desc.tsv.gz",
                             show_col_types = FALSE)
 ```
 
@@ -97,14 +97,32 @@ Riester M, Taylor JM, Feifer A, Koppie T et al. Combination of a novel gene expr
 #### Data cleaning
 
 ::: columns
-::: {.column width="70%"}
+::: {.column width="30%"}
 -   Selecting smoking, metastasis, and gene expressions as variables
 -   From wide to long format
 -   Filtering genes with standard deviation greater than 0:
     -   From 54,675 to 48,932 genes
+    
 :::
 
-::: {.column width="30%"}
+::: {.column width="70%"}
+```{r}
+#| echo: false
+#| output: false
+#| warning: false
+library(tidyverse)
+
+data_load <- read_tsv(gzfile("../data/01_dat_load_head.tsv.gz"))
+data_clean <- read_tsv(gzfile("../data/02_dat_clean_head.tsv.gz"))
+```
+
+```{r}
+
+rmarkdown::paged_table(data_load, options=list(rows.print=5, cols.print=8)) 
+rmarkdown::paged_table(data_clean, options=list(rows.print=5, cols.print=4)) 
+
+```
+
 :::
 :::
 

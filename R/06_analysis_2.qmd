@@ -38,7 +38,7 @@ This figure shows the top 13 most significant genes, and their average Log2 Fold
 
 **Conclusion of second analysis:**
 
-From this figure, we can see that 5 genes are slightly up-regulated, and the rest 8 genes are down-regulated. For the gene 206561_s\_at, being the most down-regulated, we also observe larger variability across these samples which is reflected in a larger error-bar.
+From this figure, we can see that 5 genes are slightly up-regulated, and the rest 8 genes are down-regulated. For the gene 206561_s_at, being the most down-regulated, we also observe larger variability across these samples which is reflected in a larger error-bar.
 
 ```{r}
 conf_int_plot <- data |>
