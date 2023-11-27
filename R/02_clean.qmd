@@ -74,4 +74,6 @@ data_clean_long
 
 ```{r}
 write_tsv(data_clean_long, "../data/02_dat_clean.tsv.gz")
+
+write_tsc(head(data_clean_long), "../data/02_dat_clean_head.tsv.gz")
 ```
