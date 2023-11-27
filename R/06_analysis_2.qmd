@@ -93,10 +93,10 @@ smoking_plot <- data |>
                          log2_fold_change_sample, 
                          FUN = mean),
                fill = Smoking)) +
-      geom_bar(position = "fill") +
+      geom_bar() +
       facet_grid(Avg_Regulation ~ Regulation, scales="free", space = "free") +
-      labs(x = "Percentage", y = "Genes") +
-      ggtitle("") 
+      labs(x = "Counts", y = "Genes") +
+      ggtitle("Relationship Between Smoking Habits and the Altered Gene Expression") 
 
 ggsave(
   filename = "../results/06_smoking_plot.png",
