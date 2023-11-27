@@ -1,5 +1,6 @@
 ---
-title: "Augment"
+title: "Group 7 Project"
+subtitle: "03_augmented"
 editor: visual
 format:
   html:

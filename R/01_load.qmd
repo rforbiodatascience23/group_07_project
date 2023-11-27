@@ -1,5 +1,6 @@
 ---
-title: "Load"
+title: "Group 7 Project"
+subtitle: "01_load"
 editor: visual
 format:
   html:
@@ -7,7 +8,7 @@ format:
 author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)"
 ---
 
-## 
+## Load
 
 ```{r}
 #| output: false

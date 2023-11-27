@@ -1,5 +1,6 @@
 ---
-title: "Analysis 2"
+title: "Group 7 Project"
+subtitle: "06_analysis_2"
 editor: visual
 format:
   html:

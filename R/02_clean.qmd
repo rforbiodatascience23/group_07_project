@@ -1,5 +1,7 @@
 ---
-title: "Clean"
+title: "Group 7 Project"
+subtitle: "02_clean" 
+editor: visual
 format:
   html:
     embed-resources: true
