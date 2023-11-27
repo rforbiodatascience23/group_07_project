@@ -2,17 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<<<<<<< HEAD
 <meta name="generator" content="quarto-1.3.353">
-=======
-<meta name="generator" content="quarto-1.3.433">
->>>>>>> 01f9439d0e63b5a8f0d08d4e6c1ffbb3567c3231
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Sarah Rosenberg Asmussen (s194689), Mette Bøge Pedersen (s194679), Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)">
 
-<title>Augment</title>
+<title>Group 7 Project</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3028,7 +3024,8 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Augment</h1>
+<h1 class="title">Group 7 Project</h1>
+<p class="subtitle lead">03_augmented</p>
 </div>
 
 
@@ -3049,21 +3046,12 @@ vertical-align: -.125em;
 
 </header>
 
-<section id="data-load" class="level3">
-<h3 class="anchored" data-anchor-id="data-load">Data Load</h3>
+<section id="data-augment" class="level2">
+<h2 class="anchored" data-anchor-id="data-augment">Data Augment</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data_clean <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">gzfile</span>(<span class="st">&quot;../data/02_dat_clean.tsv.gz&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 4550676 Columns: 4
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;\t&quot;
-chr (2): Smoking, gene
-dbl (2): Metastasis, gene_expression
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_clean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data_clean <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">gzfile</span>(<span class="st">&quot;../data/02_dat_clean.tsv.gz&quot;</span>),</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data_clean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,550,676 × 4
    Metastasis Smoking gene      gene_expression
@@ -3081,29 +3069,28 @@ dbl (2): Metastasis, gene_expression
 # ℹ 4,550,666 more rows</code></pre>
 </div>
 </div>
-</section>
-<section id="creating-new-columns" class="level3">
-<h3 class="anchored" data-anchor-id="creating-new-columns">Creating new columns</h3>
+<section id="creating-new-columns" class="level4">
+<h4 class="anchored" data-anchor-id="creating-new-columns">Creating new columns</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We calculate the t-test p value of the gene_expression by comparring metastasis and non-metastasis for each gene:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data_aug <span class="ot">&lt;-</span> data_clean <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gene) <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_value =</span> <span class="fu">t.test</span>(gene_expression[Metastasis <span class="sc">==</span> <span class="dv">1</span>], </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                          gene_expression[Metastasis <span class="sc">==</span> <span class="dv">0</span>])<span class="sc">$</span>p.value) <span class="sc">|&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_significant =</span> <span class="fu">case_when</span>(p_value <span class="sc">&lt;=</span> <span class="fl">0.01</span> <span class="sc">~</span> <span class="st">&quot;Yes&quot;</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                                    p_value <span class="sc">&gt;</span> <span class="fl">0.01</span> <span class="sc">~</span> <span class="st">&quot;No&quot;</span> ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We calculate the t-test p value of the gene_expression by comparring metastasis and non-metastasis for each gene:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data_aug <span class="ot">&lt;-</span> data_clean <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gene) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_value =</span> <span class="fu">t.test</span>(gene_expression[Metastasis <span class="sc">==</span> <span class="dv">1</span>], </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                          gene_expression[Metastasis <span class="sc">==</span> <span class="dv">0</span>])<span class="sc">$</span>p.value) <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_significant =</span> <span class="fu">case_when</span>(p_value <span class="sc">&lt;=</span> <span class="fl">0.01</span> <span class="sc">~</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                    p_value <span class="sc">&gt;</span> <span class="fl">0.01</span> <span class="sc">~</span> <span class="st">&quot;No&quot;</span> ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We are adding the Log2-Fold-Change as an average value for each gene, and a Log2-Fold-Change as a value for each sample with metastasis for each gene.</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a> data_aug_log <span class="ot">&lt;-</span> data_aug <span class="sc">|&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">log2_fold_change_avg =</span> <span class="fu">log2</span>(<span class="fu">mean</span>(gene_expression[Metastasis <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">/</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">mean</span>(gene_expression[Metastasis <span class="sc">==</span> <span class="dv">0</span>])),</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">log2_fold_change_sample =</span> <span class="fu">ifelse</span>(</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>            Metastasis <span class="sc">==</span> <span class="dv">0</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>            <span class="cn">NA</span>,              </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">log2</span>(gene_expression <span class="sc">/</span> <span class="fu">mean</span>(gene_expression[Metastasis <span class="sc">==</span> <span class="dv">0</span>]))))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a> data_aug_log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We are adding the Log2-Fold-Change as an average value for each gene, and a Log2-Fold-Change as a value for each sample with metastasis for each gene.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> data_aug_log <span class="ot">&lt;-</span> data_aug <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">log2_fold_change_avg =</span> <span class="fu">log2</span>(<span class="fu">mean</span>(gene_expression[Metastasis <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">/</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">mean</span>(gene_expression[Metastasis <span class="sc">==</span> <span class="dv">0</span>])),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">log2_fold_change_sample =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            Metastasis <span class="sc">==</span> <span class="dv">0</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="cn">NA</span>,              </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">log2</span>(gene_expression <span class="sc">/</span> <span class="fu">mean</span>(gene_expression[Metastasis <span class="sc">==</span> <span class="dv">0</span>]))))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a> data_aug_log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,550,676 × 8
 # Groups:   gene [48,932]
@@ -3124,11 +3111,12 @@ dbl (2): Metastasis, gene_expression
 </div>
 </div>
 </section>
-<section id="write-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="write-the-data">Write the data</h3>
+<section id="write-the-data" class="level4">
+<h4 class="anchored" data-anchor-id="write-the-data">Write the data</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(data_aug_log, <span class="st">&quot;../data/03_dat_aug.tsv.gz&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(data_aug_log, <span class="st">&quot;../data/03_dat_aug.tsv.gz&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 </section>
 
 </main>

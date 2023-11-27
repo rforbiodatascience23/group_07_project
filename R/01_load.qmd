@@ -17,7 +17,7 @@ author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Car
 library(tidyverse)
 ```
 
-### Creating data folder if not already exists
+#### Creating data folder if not already exists
 
 If the data folder and subfolder \_raw does not already exist, this code will create it.
 
@@ -36,7 +36,7 @@ if( !dir.exists(raw_dir)){
 
 ```
 
-### Download metadata
+#### Download metadata
 
 ```{r}
 
@@ -53,7 +53,7 @@ meta_data <- read_tsv(gzfile("../data/_raw/GSE31684_meta_data.tsv"),  show_col_t
 meta_data
 ```
 
-### Download gene expression data
+#### Download gene expression data
 
 ```{r}
 # creating url
@@ -65,6 +65,7 @@ Sys.setenv(VROOM_CONNECTION_SIZE=500000)
 # Retrieve the data directly
 # skippin first 82 lines because it is just info
 gene_exp_file <- read_tsv(file = gene_url,
+                          show_col_types = FALSE,
                           skip = 82)
 
 # Write the data to disk

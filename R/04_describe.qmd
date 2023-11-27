@@ -26,7 +26,7 @@ Urothelial carcinoma of the urinary bladder is the fifth most common cancer in t
 
 Cancer gene expression data from 93 patients undergoing radical cystectomy (RC) between 1993 and 2004. Lymph node dissection was performed in 77 patients; no patient has metastatic disease at the time of RC. Metastatic disease means that the cancer has spread to a different part of the body than where it started. Case selection was restricted to those with frozen specimens with measurable volume of malignancy and adequate percentage of tumor.
 
-### Data load
+#### Data load
 
 ```{r}
 #| echo: false
@@ -54,7 +54,7 @@ data_clean_sd <- read_tsv(gzfile("../data/02_dat_clean.tsv.gz"),
 data_clean_sd
 ```
 
-### Counting number of genes
+#### Counting number of genes
 
 ```{r}
 number_of_genes <- data_describe |> 
@@ -80,7 +80,7 @@ number_of_genes_after_sd
 
 After removing these genes, we end up with 48,932 genes.
 
-### Table visualizing meta data
+#### Table visualizing meta data
 
 ```{r}
 table_data <- data_describe |> 
@@ -96,7 +96,7 @@ In the table we can see that the majority of patients are have smoked for at per
 
 For metastasis, we see that \~60% do not have metastasis and the rest do.
 
-### Writing a dataset to be used in presentation
+#### Writing a dataset to be used in presentation
 
 ```{r}
 data_describe |>

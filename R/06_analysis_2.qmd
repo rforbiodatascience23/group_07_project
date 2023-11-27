@@ -1,14 +1,11 @@
 ---
 title: "Group 7 Project"
-subtitle: "06_analysis_2"
 editor: visual
 format:
   html:
     embed-resources: true
 author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)"
 ---
-
-## 
 
 ```{r}
 #| output: false
@@ -18,7 +15,7 @@ library(tidyverse)
 library(readr)
 ```
 
-### Data Load
+## Analysis 2
 
 ```{r}
 data <- read_tsv(gzfile("../data/03_dat_aug.tsv.gz"),
@@ -26,7 +23,7 @@ data <- read_tsv(gzfile("../data/03_dat_aug.tsv.gz"),
 data
 ```
 
-## Analysis 2
+#### Description 
 
 In this analysis, we want to explore the potential relationship between smoking habits and the altered regulation of gene expression. Each gene in our data set represents variation in gene expression across different patients. Interestingly, many genes exhibit both up-regulation and down-regulation patterns, which vary among individual patients.
 

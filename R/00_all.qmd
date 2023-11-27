@@ -1,5 +1,6 @@
 ---
 title: "Group 7 Project"
+subtitle: "Final HTML"
 editor: visual
 format:
   html:
