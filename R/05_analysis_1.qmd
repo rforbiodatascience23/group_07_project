@@ -50,7 +50,7 @@ volcano_plot <- data |>
   geom_hline(yintercept=2,
              linetype="dotted", 
              color = "black", 
-             size=0.5) +
+             linewidth=0.5) +
   theme(legend.position = "none") + 
   theme_minimal() +
   labs(title="Genes Associated with Metastasis in Bladder Cancer", 

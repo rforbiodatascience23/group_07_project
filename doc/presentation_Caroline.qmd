@@ -4,38 +4,44 @@ author: "Group 7: <br> Yassine Turki (s231735) <br>	Jaime Noguera Piera (s233773
 format:
   revealjs: 
     slide-number: true
-    theme: moon
+    theme: sky
+    width: 2050
+    height: 800
+    margin: 0.1
     footer: "Group 7 Project: R for Bio Data Science"
 ---
 
 ## Aim
 
-```{css}
-.title {
-  font-size: 80px !important;
-}
-
-.quarto-title-author-name {
-  font-size: 20px !important;
-}
-
-```
-
+<p style="text-align: center;">
 *"Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression."*
+</p>
 
-## Introduction
+## Introduction: Bladder cancer
 
--   Disease
+::: columns
+::: {.column width="60%"}
+-   [Approx. 500,000 cases worldwide in 2020.]{style="font-size: 0.7em;"}
+-   [Smoking is considered to account for half of cases.]{style="font-size: 0.7em;"}
+-   [Only 5% diagnosed with metastasis in distant body parts.]{style="font-size: 0.7em;"}
+:::
 
--   Data description table
-
--   Aim
-
-```{r}
-
+::: {.column width="40%"}
+```{r, out.width = "800px"}
+knitr::include_graphics("external_figures/bladder_cancer.png")
 ```
+:::
+:::
 
-## Data description {.smaller}
+<!-- References -->
+
+::: {.absolute bottom="0;" style="font-size: 0.3em; color: grey;"}
+American Cancer Society. 2023. "What Is Bladder Cancer?" https://www.cancer.org/cancer/types/bladder-cancer/about/what-is-bladder-cancer.html.
+
+Cancer.Net. 2023. "Bladder Cancer: Statistics" https://www.cancer.net/cancer-types/bladder-cancer/statistics
+:::
+
+## Data description
 
 :::: {.columns}
 
@@ -57,12 +63,26 @@ data_describe <- read_tsv("../data/04_dat_desc.tsv",
                             show_col_types = FALSE)
 ```
 
+```{css}
+table.Rtable1 {
+    font-size: 25pt;
+}
+
+.Rtable1 .firstrow, .Rtable1 .firstrow ~ td {
+    border-top: 1pt solid black;
+}
+
+.Rtable1 td.rowlabel {
+    font-style: italic;
+}
+```
+
+
 ```{r}
 data_describe |> 
   mutate(Metastasis = factor(Metastasis)) |> 
   table1(x = formula(~ Smoking + Metastasis), 
-         data = _,
-         caption = "Overview of number of patients who have metastasis and smoking status")
+         data = _)
 ```
 :::
 
@@ -70,27 +90,92 @@ data_describe |>
 
 ## Methods
 
+#### Data cleaning
+
+
+## Methods
+
+#### Data augmentation
+
 Log 2 fold change T test P value
 
+$$
+log2foldchange = \log(\frac{\mu(gene\_expression_{metastasis})}{\mu(gene\_expression_{non-metastasis}})
+$$
+
+$$
+log2foldchange = \log(\frac{gene\_expression_{metastasis}}{\mu(gene\_expression_{non-metastasis}})
+$$
+
+T-TEST
+
+P-Value (cut)
+
 ## Results
 
-```{r}
+::: columns
+::: {.column width="40%"}
+-   [Point 1]{style="font-size: 0.7em;"}
+-   [Point 2]{style="font-size: 0.7em;"}
+-   [Point 3]{style="font-size: 0.7em;"}
+:::
+
+::: {.column width="60%" style="margin-top: 20px;"}
+```{r, out.width = "800px"}
 knitr::include_graphics("../results/05_volcano_plot.png")
 ```
+:::
+:::
 
 ## Results
 
-Description / name of genes ![conf_int](../results/06_conf_int_plot.png)
+Description / name of genes
 
-```{r}
+::: columns
+::: {.column width="40%"}
+-   [Point 1]{style="font-size: 0.7em;"}
+-   [Point 2]{style="font-size: 0.7em;"}
+-   [Point 3]{style="font-size: 0.7em;"}
+:::
+
+::: {.column width="60%" style="margin-top: 20px;"}
+```{r, out.width = "800px"}
 knitr::include_graphics("../results/06_conf_int_plot.png")
 ```
+:::
+:::
 
 ## Results
+
+#### Aim of analysis 2B: Investigation of the effect of smoking in relation to gene expression
+
+::: columns
+::: {.column width="50%"}
+-   [Individual log2fold change for patients with metastasis]{style="font-size: 0.7em;"}
+-   [Count of Current Smokers, Former Smokers, and Non-smokers for each gene]{style="font-size: 0.7em;"}
+-   [Group top 13 most significant genes (p \< 0.01) based on up or down regulation being risk factor]{style="font-size: 0.7em;"} <br><br>
+-   [Current smokers for all gene regulation of risk.]{style="font-size: 0.7em;"}
+-   [More metastatic patients with genes expression being risk]{style="font-size: 0.7em;"}
+-   [Small sample size (N=93).]{style="font-size: 0.7em;"}
+:::
+
+::: {.column width="50%" style="margin-top: 0px;"}
+```{r, out.width = "800px"}
+knitr::include_graphics("../results/06_smoking_plot.png")
+```
+:::
+:::
 
 ## Discussion
 
--   Over 20 syntax highlighting themes available
--   Default theme optimized for accessibility
+-   Out of X genes, 286 genes are significantly up or downregulated in patients with metastasis.
 
-## Thank you
+-   Current smoking seem to have a relation to gene regulation inducing metastasis in patients with urothelial carcinoma.
+
+    -   Statistical test on relation to smoking.
+    
+<br>
+
+-   Small sample size (N=93). More data will increase statistical power.
+
+-   Include more metadata to the analysis to expand the aim.
