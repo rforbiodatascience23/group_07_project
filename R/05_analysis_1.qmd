@@ -20,7 +20,8 @@ library(readr)
 ### Data Load
 
 ```{r}
-data <- read_tsv(gzfile("../data/03_dat_aug.tsv.gz"))
+data <- read_tsv(gzfile("../data/03_dat_aug.tsv.gz"),
+                 show_col_types = FALSE)
 data
 ```
 

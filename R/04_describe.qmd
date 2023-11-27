@@ -41,8 +41,7 @@ library(tidyverse)
 Sys.setenv(VROOM_CONNECTION_SIZE=5000000)
 data_describe <- read_tsv(
   gzfile("../data/02_dat_clean_wide.tsv.gz"),
-  show_col_types = FALSE
-)
+  show_col_types = FALSE)
 
 data_describe
 ```

@@ -19,7 +19,8 @@ library(tidyverse)
 ```{r}
 #| warning: false
 Sys.setenv(VROOM_CONNECTION_SIZE=5000000)
-data <- read_tsv(gzfile("../data/01_dat_load.tsv.gz"))
+data <- read_tsv(gzfile("../data/01_dat_load.tsv.gz"), 
+                 show_col_types = FALSE)
 head(data)
 ```
 
