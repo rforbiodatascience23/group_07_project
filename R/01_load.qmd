@@ -12,6 +12,7 @@ author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Car
 ```{r}
 #| output: false
 #| warning: false
+#| echo: false
 library(tidyverse)
 library(table1)
 ```

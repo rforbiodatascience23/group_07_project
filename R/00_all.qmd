@@ -22,7 +22,7 @@ library("quarto")
 quarto_render("01_load.qmd")
 quarto_render(input = "02_clean.qmd")
 quarto_render(input = "03_augment.qmd")
-#quarto_render(input = "04_describe.qmd")
+quarto_render(input = "04_describe.qmd")
 quarto_render(input = "05_analysis_1.qmd")
 quarto_render(input = "06_analysis_2.qmd")
 
@@ -32,8 +32,8 @@ file.rename(from = "02_clean.html",
             to = "../results/02_clean.html")
 file.rename(from = "03_augment.html",
             to = "../results/03_augment.html")
-#file.rename(from = "04_describe.html",
-#            to = "../results/04_describe.html")
+file.rename(from = "04_describe.html",
+            to = "../results/04_describe.html")
 file.rename(from = "05_analysis_1.html",
             to = "../results/05_analysis_1.html")
 file.rename(from = "06_analysis_2.html",
@@ -48,6 +48,6 @@ file.rename(from = "06_analysis_2.html",
 
 {{< include 04_describe.qmd >}}
 
-{{< include 05_analysis_01.qmd >}}
+{{< include 05_analysis_1.qmd >}}
 
-{{< include 06_analysis_02.qmd >}}
+{{< include 06_analysis_2.qmd >}}
