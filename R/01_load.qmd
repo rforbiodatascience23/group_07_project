@@ -100,4 +100,5 @@ data_joined = full_join(meta_data, df_wide, by = join_by(GEO))
 
 ```{r}
 write_tsv(data_joined, "../data/01_dat_load.tsv.gz")
+write_tsv(head(data_joined), "../data/01_dat_load_head.tsv.gz")
 ```
