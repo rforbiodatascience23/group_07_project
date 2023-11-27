@@ -51,7 +51,6 @@ Cancer.Net. 2023. "Bladder Cancer: Statistics" https://www.cancer.net/cancer-typ
 -   Microarray data from patients collected from 1993 to 2004
 -   Only metadata we use is the smoking status and metastasis
 -   Total number of genes is 54,675
-    -   After keeping genes with sd greater than 0 we have 48,932 genes
 :::
 
 ::: {.column width="30%"}
@@ -78,7 +77,6 @@ table.Rtable1 {
 }
 ```
 
-
 ```{r}
 data_describe |> 
   mutate(Metastasis = factor(Metastasis)) |> 
@@ -86,7 +84,6 @@ data_describe |>
          data = _)
 ```
 :::
-
 :::
 
 <!-- References -->
@@ -99,9 +96,23 @@ Riester M, Taylor JM, Feifer A, Koppie T et al. Combination of a novel gene expr
 
 #### Data cleaning
 
+::: columns
+::: {.column width="70%"}
+-   Selecting smoking, metastasis, and gene expressions as variables
+-   From wide to long format
+-   Filtering genes with standard deviation greater than 0:
+    -   From 54,675 to 48,932 genes
+:::
+
+::: {.column width="30%"}
+:::
+:::
+
 ## Methods {.your_specific_slide_identifier}
 
 <!-- Add inline CSS for specific slide -->
+
+```{=html}
 <style>
 /* Adjust font size and move everything higher */
 .your_specific_slide_identifier {
@@ -129,42 +140,37 @@ Riester M, Taylor JM, Feifer A, Koppie T et al. Combination of a novel gene expr
   font-size: 80%; /* Adjust the font size for smaller letters */
 }
 </style>
+```
+### Augmentation
 
-
-### Objective
 Analyze gene association between gene expression and metastasis.
 
-+ **Fold change**
-  - Measure the magnitude of gene expression change.
+-   **Fold change**
+    -   Measure the magnitude of gene expression change.
+-   **Data augmentation**: **log2(fold change)**
+    -   Scale for better interpretability due to symmetry.
 
-+ **Data augmentation**: **log2(fold change)**
-  - Scale for better interpretability due to symmetry.
-    <div class="columns">
-    <div class="column">
+        ::: columns
+        ::: column
+        $$
+          \text{Avg. log2 FC}_a = \log\left(\frac{\mu(\text{gene}_{\text{meta}})}{\mu(\text{gene}_{\text{non-meta}})}\right)
+          $$
 
-      $$
-      \text{Avg. log2 FC}_a = \log\left(\frac{\mu(\text{gene}_{\text{meta}})}{\mu(\text{gene}_{\text{non-meta}})}\right)
-      $$
+        <small>Average Gene Expression (one value for each gene) </small>
+        :::
 
-      <small>Average Gene Expression (one value for each gene) </small>
+        ::: column
+        $$
+          \text{Ind. log2 FC}_{\text{ind}} = \log\left(\frac{\text{gene}_{\text{meta}}}{\mu(\text{gene}_{\text{non-meta}})}\right)
+          $$
 
-    </div>
-    <div class="column">
-
-      $$
-      \text{Ind. log2 FC}_{\text{ind}} = \log\left(\frac{\text{gene}_{\text{meta}}}{\mu(\text{gene}_{\text{non-meta}})}\right)
-      $$
-
-      <small>Individual Gene Expression (yes metastasis list for each gene) </small>
-
-    </div>
-  </div>
-
-* **T-TEST**
-  - Compare the mean of two groups.
-
-* **P-Value (cut)**
-  - Set at 0.01.
+        <small>Individual Gene Expression (yes metastasis list for each gene) </small>
+        :::
+        :::
+-   **T-TEST**
+    -   Compare the mean of two groups.
+-   **P-Value (cut)**
+    -   Set at 0.01.
 
 ## Results
 

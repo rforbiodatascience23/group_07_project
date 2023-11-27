@@ -369,10 +369,7 @@
 <li>93 patients with urothelial carcinoma undergoing radical cystectomy</li>
 <li>Microarray data from patients collected from 1993 to 2004</li>
 <li>Only metadata we use is the smoking status and metastasis</li>
-<li>Total number of genes is 54,675
-<ul>
-<li>After keeping genes with sd greater than 0 we have 48,932 genes</li>
-</ul></li>
+<li>Total number of genes is 54,675</li>
 </ul>
 </div><div class="column" style="width:30%;">
 <div class="cell">
@@ -448,6 +445,20 @@ table.Rtable1 {
 <section id="methods" class="slide level2">
 <h2>Methods</h2>
 <h4 id="data-cleaning">Data cleaning</h4>
+<div class="columns">
+<div class="column" style="width:70%;">
+<ul>
+<li>Selecting smoking, metastasis, and gene expressions as variables</li>
+<li>From wide to long format</li>
+<li>Filtering genes with standard deviation greater than 0:
+<ul>
+<li>From 54,675 to 48,932 genes</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:30%;">
+
+</div>
+</div>
 </section>
 <section id="methods-1" class="slide level2 your_specific_slide_identifier">
 <h2>Methods</h2>
@@ -479,7 +490,7 @@ table.Rtable1 {
   font-size: 80%; /* Adjust the font size for smaller letters */
 }
 </style>
-<h3 id="objective">Objective</h3>
+<h3 id="augmentation">Augmentation</h3>
 <p>Analyze gene association between gene expression and metastasis.</p>
 <ul>
 <li><strong>Fold change</strong>
@@ -488,7 +499,7 @@ table.Rtable1 {
 </ul></li>
 <li><strong>Data augmentation</strong>: <strong>log2(fold change)</strong>
 <ul>
-<li>Scale for better interpretability due to symmetry.
+<li><p>Scale for better interpretability due to symmetry.</p>
 <div class="columns">
 <div class="column">
 <p><span class="math display">\[
