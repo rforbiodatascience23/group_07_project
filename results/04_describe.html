@@ -2738,43 +2738,46 @@ white-space: normal;
 <h4 class="anchored" data-anchor-id="about-the-data-we-use">About the data we use</h4>
 <p>Cancer gene expression data from 93 patients undergoing radical cystectomy (RC) between 1993 and 2004. Lymph node dissection was performed in 77 patients; no patient has metastatic disease at the time of RC. Metastatic disease means that the cancer has spread to a different part of the body than where it started. Case selection was restricted to those with frozen specimens with measurable volume of malignancy and adequate percentage of tumor.</p>
 </section>
-</section>
-<section id="data-load" class="level2">
-<h2 class="anchored" data-anchor-id="data-load">Data load</h2>
+<section id="data-load" class="level3">
+<h3 class="anchored" data-anchor-id="data-load">Data load</h3>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: &#39;table1&#39;</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from &#39;package:base&#39;:
 
-    units, units&lt;-</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.2     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.3     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data_describe <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gzfile</span>(<span class="st">&quot;../data/02_dat_clean_wide.tsv.gz&quot;</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>data_describe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 93 × 54,678
+   Metastasis Smoking GEO    `1007_s_at` `1053_at` `117_at` `121_at` `1255_g_at`
+        &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+ 1          0 Former  GSM78…        6.80      8.39     3.89     5.43        2.23
+ 2          1 Never   GSM78…       11.3       8.16     4.65     5.43        2.23
+ 3          0 Current GSM78…       11.0       8.01     3.73     5.42        2.23
+ 4          1 Former  GSM78…        8.95      8.15     4.19     5.49        2.23
+ 5          0 Former  GSM78…       11.7       8.16     3.53     5.43        2.23
+ 6          1 Former  GSM78…       11.7       7.99     3.73     5.43        2.23
+ 7          0 Current GSM78…        9.88      7.96     3.80     5.43        2.23
+ 8          0 Never   GSM78…        9.61      8.78     4.11     5.61        2.23
+ 9          1 Former  GSM78…       11.2       9.00     3.93     5.43        2.23
+10          0 Former  GSM78…        9.69      9.54     8.88     5.43        2.23
+# ℹ 83 more rows
+# ℹ 54,670 more variables: `1294_at` &lt;dbl&gt;, `1316_at` &lt;dbl&gt;, `1320_at` &lt;dbl&gt;,
+#   `1405_i_at` &lt;dbl&gt;, `1431_at` &lt;dbl&gt;, `1438_at` &lt;dbl&gt;, `1487_at` &lt;dbl&gt;,
+#   `1494_f_at` &lt;dbl&gt;, `1552256_a_at` &lt;dbl&gt;, `1552257_a_at` &lt;dbl&gt;,
+#   `1552258_at` &lt;dbl&gt;, `1552261_at` &lt;dbl&gt;, `1552263_at` &lt;dbl&gt;,
+#   `1552264_a_at` &lt;dbl&gt;, `1552266_at` &lt;dbl&gt;, `1552269_at` &lt;dbl&gt;,
+#   `1552271_at` &lt;dbl&gt;, `1552272_a_at` &lt;dbl&gt;, `1552274_at` &lt;dbl&gt;, …</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_describe <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;../data/02_dat_clean_wide.tsv&quot;</span>,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>data_describe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data_clean_sd <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>( <span class="st">&quot;../data/02_dat_clean.tsv&quot;</span>,</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>data_clean_sd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_clean_sd <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">gzfile</span>(<span class="st">&quot;../data/02_dat_clean.tsv.gz&quot;</span>),</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>data_clean_sd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,550,676 × 4
    Metastasis Smoking gene      gene_expression
@@ -2793,18 +2796,18 @@ Attaching package: &#39;table1&#39;</code></pre>
 </div>
 </div>
 </section>
-<section id="counting-number-of-genes" class="level2">
-<h2 class="anchored" data-anchor-id="counting-number-of-genes">Counting number of genes</h2>
+<section id="counting-number-of-genes" class="level3">
+<h3 class="anchored" data-anchor-id="counting-number-of-genes">Counting number of genes</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>number_of_genes <span class="ot">&lt;-</span> data_describe <span class="sc">|&gt;</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(GEO, <span class="fu">ends_with</span>(<span class="st">&quot;_at&quot;</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>GEO,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;Genes&quot;</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;Gene_expression&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Genes) <span class="sc">|&gt;</span> </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>number_of_genes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>number_of_genes <span class="ot">&lt;-</span> data_describe <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(GEO, <span class="fu">ends_with</span>(<span class="st">&quot;_at&quot;</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>GEO,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;Genes&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;Gene_expression&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Genes) <span class="sc">|&gt;</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>number_of_genes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
       n
@@ -2814,11 +2817,11 @@ Attaching package: &#39;table1&#39;</code></pre>
 </div>
 <p>We have a total number of 54,675 genes for each patient in the original dataset. Then we also calculate the standard deviation for each gene, and filtered out all the genes with a standard deviation of 0 which means they were neither up-regulated nor down-regulated.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>number_of_genes_after_sd <span class="ot">&lt;-</span> data_clean_sd <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(gene) <span class="sc">|&gt;</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>number_of_genes_after_sd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>number_of_genes_after_sd <span class="ot">&lt;-</span> data_clean_sd <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(gene) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>number_of_genes_after_sd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
       n
@@ -2828,16 +2831,16 @@ Attaching package: &#39;table1&#39;</code></pre>
 </div>
 <p>After removing these genes, we end up with 48,932 genes.</p>
 </section>
-<section id="table-visualizing-meta-data" class="level2">
-<h2 class="anchored" data-anchor-id="table-visualizing-meta-data">Table visualizing meta data</h2>
+<section id="table-visualizing-meta-data" class="level3">
+<h3 class="anchored" data-anchor-id="table-visualizing-meta-data">Table visualizing meta data</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>table_data <span class="ot">&lt;-</span> data_describe <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Metastasis =</span> <span class="fu">factor</span>(Metastasis)) <span class="sc">|&gt;</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table1</span>(<span class="at">x =</span> <span class="fu">formula</span>(<span class="sc">~</span> Smoking <span class="sc">+</span> Metastasis), </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> _,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">caption =</span> <span class="st">&quot;Overview of number of patients who have metastasis and smoking status&quot;</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>table_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>table_data <span class="ot">&lt;-</span> data_describe <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Metastasis =</span> <span class="fu">factor</span>(Metastasis)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table1</span>(<span class="at">x =</span> <span class="fu">formula</span>(<span class="sc">~</span> Smoking <span class="sc">+</span> Metastasis), </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> _,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">caption =</span> <span class="st">&quot;Overview of number of patients who have metastasis and smoking status&quot;</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>table_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div class="Rtable1"><table class="Rtable1"><caption>Overview of number of patients who have metastasis and smoking status</caption>
@@ -2885,13 +2888,14 @@ Attaching package: &#39;table1&#39;</code></pre>
 <p>In the table we can see that the majority of patients are have smoked for at period of time in their lives, though we do not know for how long and how frequently they smoked in that time. Then we have almost an equal amount for current smokers, and patients who have never smoked.</p>
 <p>For metastasis, we see that ~60% do not have metastasis and the rest do.</p>
 </section>
-<section id="writing-a-dataset-to-be-used-in-presentation" class="level2">
-<h2 class="anchored" data-anchor-id="writing-a-dataset-to-be-used-in-presentation">Writing a dataset to be used in presentation</h2>
+<section id="writing-a-dataset-to-be-used-in-presentation" class="level3">
+<h3 class="anchored" data-anchor-id="writing-a-dataset-to-be-used-in-presentation">Writing a dataset to be used in presentation</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_describe <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(Smoking, Metastasis)) <span class="sc">|&gt;</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_tsv</span>(<span class="st">&quot;../data/04_dat_desc.tsv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_describe <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(Smoking, Metastasis)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_tsv</span>(<span class="st">&quot;../data/04_dat_desc.tsv.gz&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 </section>
 
 </main>

@@ -38,14 +38,16 @@ library(tidyverse)
 
 ```{r}
 #| warning: false
-data_describe <- read_tsv("../data/02_dat_clean_wide.tsv",
-                            show_col_types = FALSE)
+data_describe <- read_tsv(
+  gzfile("../data/02_dat_clean_wide.tsv.gz"),
+  show_col_types = FALSE
+)
 
 data_describe
 ```
 
 ```{r}
-data_clean_sd <- read_tsv( "../data/02_dat_clean.tsv",
+data_clean_sd <- read_tsv(gzfile("../data/02_dat_clean.tsv.gz"),
                             show_col_types = FALSE)
 
 data_clean_sd
@@ -98,5 +100,5 @@ For metastasis, we see that \~60% do not have metastasis and the rest do.
 ```{r}
 data_describe |>
   select(c(Smoking, Metastasis)) |> 
-  write_tsv("../data/04_dat_desc.tsv")
+  write_tsv("../data/04_dat_desc.tsv.gz")
 ```

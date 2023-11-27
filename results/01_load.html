@@ -8,7 +8,7 @@
 
 <meta name="author" content="Sarah Rosenberg Asmussen (s194689), Mette Bøge Pedersen (s194679), Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)">
 
-<title>01_load.qmd</title>
+<title>Load</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -2608,7 +2608,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">01_load.qmd</h1>
+<h1 class="title">Load</h1>
 </div>
 
 
@@ -2629,14 +2629,13 @@ vertical-align: -.125em;
 
 </header>
 
-<section id="load-packages" class="level2">
-<h2 class="anchored" data-anchor-id="load-packages">Load packages</h2>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
 <div class="cell">
 
 </div>
-</section>
-<section id="creating-data-folder-if-not-already-exists" class="level2">
-<h2 class="anchored" data-anchor-id="creating-data-folder-if-not-already-exists">Creating data folder if not already exists</h2>
+<section id="creating-data-folder-if-not-already-exists" class="level3">
+<h3 class="anchored" data-anchor-id="creating-data-folder-if-not-already-exists">Creating data folder if not already exists</h3>
 <p>If the data folder and subfolder _raw does not already exist, this code will create it.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data_dir <span class="ot">&lt;-</span> <span class="st">&quot;../data/&quot;</span></span>
@@ -2651,8 +2650,8 @@ vertical-align: -.125em;
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="download-metadata" class="level2">
-<h2 class="anchored" data-anchor-id="download-metadata">Download metadata</h2>
+<section id="download-metadata" class="level3">
+<h3 class="anchored" data-anchor-id="download-metadata">Download metadata</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>metadata_file <span class="ot">&lt;-</span> <span class="st">&quot;GSE31684_meta_data.tsv&quot;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>metadata_loc <span class="ot">&lt;-</span> <span class="st">&quot;https://ftp.ncbi.nlm.nih.gov/geo/series/GSE31nnn/GSE31684/suppl/GSE31684%5Ftable%5Fof%5Fclinical%5Fdetails.txt.gz&quot;</span></span>
@@ -2689,8 +2688,8 @@ vertical-align: -.125em;
 </div>
 </div>
 </section>
-<section id="download-gene-expression-data" class="level2">
-<h2 class="anchored" data-anchor-id="download-gene-expression-data">Download gene expression data</h2>
+<section id="download-gene-expression-data" class="level3">
+<h3 class="anchored" data-anchor-id="download-gene-expression-data">Download gene expression data</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creating url</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>gene_url <span class="ot">&lt;-</span> <span class="st">&quot;https://ftp.ncbi.nlm.nih.gov/geo/series/GSE31nnn/GSE31684/matrix/GSE31684_series_matrix.txt.gz&quot;</span></span>
@@ -2720,9 +2719,9 @@ dbl (93): GSM786491, GSM786492, GSM786493, GSM786494, GSM786495, GSM786496, ...
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write the data to disk</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(<span class="at">x =</span> gene_exp_file,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">file =</span> <span class="st">&quot;../data/_raw/gene_exp.tsv&quot;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">file =</span> <span class="st">&quot;../data/_raw/gene_exp.tsv.gz&quot;</span>)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>gene_exp_data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;../data/_raw/gene_exp.tsv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>gene_exp_data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">gzfile</span>(<span class="st">&quot;../data/_raw/gene_exp.tsv.gz&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 54676 Columns: 94
 ── Column specification ────────────────────────────────────────────────────────
@@ -2776,8 +2775,9 @@ dbl (93): GSM786491, GSM786492, GSM786493, GSM786494, GSM786495, GSM786496, ...
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>data_joined <span class="ot">=</span> <span class="fu">full_join</span>(meta_data, df_wide, <span class="at">by =</span> <span class="fu">join_by</span>(GEO))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(data_joined, <span class="st">&quot;../data/01_dat_load.tsv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(data_joined, <span class="st">&quot;../data/01_dat_load.tsv.gz&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 </section>
 
 </main>
