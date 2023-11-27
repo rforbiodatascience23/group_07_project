@@ -17,7 +17,7 @@ library(tidyverse)
 ```
 
 ```{r}
-data_clean <- read_tsv("../data/02_dat_clean.tsv")
+data_clean <- read_tsv(gzfile("../data/02_dat_clean.tsv.gz"))
 data_clean
 ```
 
@@ -49,5 +49,5 @@ data_aug <- data_clean |>
 ### Write the data
 
 ```{r}
-write_tsv(data_aug_log, "../data/03_dat_aug.tsv")
+write_tsv(data_aug_log, "../data/03_dat_aug.tsv.gz")
 ```

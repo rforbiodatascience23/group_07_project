@@ -8,7 +8,7 @@
 
 <meta name="author" content="Sarah Rosenberg Asmussen (s194689), Mette Bøge Pedersen (s194679), Caroline Amalie Bastholm Jensen (s213427), Jaime Noguera Piera (s233773), Yassine Turki (s231735)">
 
-<title>02_clean.qmd</title>
+<title>Clean</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -2608,7 +2608,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">02_clean.qmd</h1>
+<h1 class="title">Clean</h1>
 </div>
 
 
@@ -2629,29 +2629,37 @@ vertical-align: -.125em;
 
 </header>
 
-<section id="load-data" class="level2">
-<h2 class="anchored" data-anchor-id="load-data">Load Data</h2>
+<section id="load-data" class="level3">
+<h3 class="anchored" data-anchor-id="load-data">Load Data</h3>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.2     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.3     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
+
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;../data/01_dat_load.tsv&quot;</span>)  </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">VROOM_CONNECTION_SIZE=</span><span class="dv">5000000</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">gzfile</span>(<span class="st">&quot;../data/01_dat_load.tsv.gz&quot;</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 54,699
+  GEO       ID    Gender PreOpClinStage `Age at RC` `Survival Months` RC_Stage
+  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt; &lt;chr&gt;   
+1 GSM786491 1_pT2 male   T3                    64.1            104.   pT2     
+2 GSM786492 2_pT2 male   T2                    62.1             13.2  pT2     
+3 GSM786493 3_pT2 female T2                    66.0             19.8  pT2     
+4 GSM786494 4_pT4 male   T2                    56.1             16.4  pT4     
+5 GSM786495 5_pT4 female T3                    68               13.1  pT4     
+6 GSM786496 6_pT3 male   T2                    69.9              4.44 pT3     
+# ℹ 54,692 more variables: RC_Histology &lt;chr&gt;, `PLND Result` &lt;chr&gt;,
+#   `RC Grade` &lt;chr&gt;, `Nomogram Score` &lt;dbl&gt;, `Distant Mets` &lt;dbl&gt;,
+#   `Local Recurrence` &lt;dbl&gt;, `Urothelial Recurrence` &lt;dbl&gt;, Metastasis &lt;dbl&gt;,
+#   `Last known status` &lt;chr&gt;, PreRC_Chemo &lt;chr&gt;, `Post RC_Chemo` &lt;chr&gt;,
+#   `PostChemo type` &lt;chr&gt;, Smoking &lt;chr&gt;, `SmokingPack-Years` &lt;chr&gt;,
+#   `Recurrence Free Survival Months (Distant and Local)` &lt;dbl&gt;,
+#   `Recurrence/DOD` &lt;chr&gt;, Cluster &lt;dbl&gt;, `1007_s_at` &lt;dbl&gt;, …</code></pre>
+</div>
 </div>
 </section>
-<section id="clean-metadata" class="level2">
-<h2 class="anchored" data-anchor-id="clean-metadata">Clean Metadata</h2>
+<section id="clean-metadata" class="level3">
+<h3 class="anchored" data-anchor-id="clean-metadata">Clean Metadata</h3>
 <p>We are creating an overview table of the metadata in the describe doc, and for that we need to clean up the data a bit. We select two attributes relevant to our analysis: Metastasis and Smoking, as well as gene expressions</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleaning the data: </span></span>
@@ -2684,14 +2692,14 @@ vertical-align: -.125em;
 </div>
 </div>
 </section>
-<section id="writing-the-data-to-be-used-in-04_describe" class="level2">
-<h2 class="anchored" data-anchor-id="writing-the-data-to-be-used-in-04_describe">Writing the data to be used in 04_describe</h2>
+<section id="writing-the-data-to-be-used-in-04_describe" class="level3">
+<h3 class="anchored" data-anchor-id="writing-the-data-to-be-used-in-04_describe">Writing the data to be used in 04_describe</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(data_clean, <span class="st">&quot;../data/02_dat_clean_wide.tsv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(data_clean, <span class="st">&quot;../data/02_dat_clean_wide.tsv.gz&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="long-data-format" class="level2">
-<h2 class="anchored" data-anchor-id="long-data-format">Long data format</h2>
+<section id="long-data-format" class="level3">
+<h3 class="anchored" data-anchor-id="long-data-format">Long data format</h3>
 <p>We would like the data in a long format, where each gene and gene expression has it’s own row, for the following augmentation and analysis.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Making the dataset long:</span></span>
@@ -2748,10 +2756,10 @@ vertical-align: -.125em;
 </div>
 </div>
 </section>
-<section id="writing-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="writing-the-data">Writing the data</h2>
+<section id="writing-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="writing-the-data">Writing the data</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(data_clean_long, <span class="st">&quot;../data/02_dat_clean.tsv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(data_clean_long, <span class="st">&quot;../data/02_dat_clean.tsv.gz&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 

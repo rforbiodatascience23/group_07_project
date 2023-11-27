@@ -58,29 +58,73 @@ knitr::include_graphics("../results/04_table_data.png")
 :::
 :::
 
-## Methods
+<!-- Add inline CSS for specific slide -->
+<style>
+/* Adjust font size and move everything higher */
+.your_specific_slide_identifier {
+  font-size: 20px; /* Adjust the font size as needed */
+  margin-top: -5%; /* Adjust the top margin as needed */
+}
 
-Log 2 fold change T test P value
+/* Adjust layout for two-column display */
+.your_specific_slide_identifier .columns {
+  display: flex;
+  align-items: top; /* Align columns to the top */
+}
 
-$$
-log2foldchange = \log(\frac{\mu(gene\_expression_{metastasis})}{\mu(gene\_expression_{non-metastasis}})
-$$
+.your_specific_slide_identifier .column {
+  flex: 1;
+  margin-right: 20px; /* Adjust the spacing between columns as needed */
+}
 
-$$
-log2foldchange = \log(\frac{gene\_expression_{metastasis}}{\mu(gene\_expression_{non-metastasis}})
-$$
+.your_specific_slide_identifier .column p {
+  margin-bottom: 5px; /* Adjust the spacing between paragraphs as needed */
+}
+</style>
 
-T-TEST
+## Methods {.your_specific_slide_identifier}
 
-P-Value (cut)
+### Objective: Analyze gene association between gene expression and metastasis.
+
++ **Fold change**
+  - Measure the magnitude of gene expression change.
+
++ **log2**
+  - Scale for better interpretability due to symmetry.
+  - <div class="columns">
+    <div class="column">
+
+      $$
+      \text{Avg. log2 FC}_a = \log\left(\frac{\mu(\text{gene}_{\text{meta}})}{\mu(\text{gene}_{\text{non-meta}})}\right)
+      $$
+
+      **Avgerage Gene Expression** (One value for each gene)
+
+    </div>
+    <div class="column">
+
+      $$
+      \text{Ind. log2 FC}_{\text{ind}} = \log\left(\frac{\text{gene}_{\text{meta}}}{\mu(\text{gene}_{\text{non-meta}})}\right)
+      $$
+
+      **Individual Gene Expression** (List of 36 (patients with metastasis) for each gene)
+
+    </div>
+  </div>
+
+* **T-TEST**
+  - Compare the mean of two groups.
+
+* **P-Value (cut)**
+  - Set at 0.01.
 
 ## Results
 
 ::: columns
 ::: {.column width="40%"}
--   [Volcano Plot]{style="font-size: 0.7em;"}
--   [Perfect for representing statistical significance over magnitude change (fold change)]{style="font-size: 0.7em;"}
-
+-   [Point 1]{style="font-size: 0.7em;"}
+-   [Point 2]{style="font-size: 0.7em;"}
+-   [Point 3 ]{style="font-size: 0.7em;"}
 :::
 
 ::: {.column width="60%" style="margin-top: 20px;"}
@@ -98,7 +142,9 @@ Description / name of genes
 
 ::: columns
 ::: {.column width="40%"}
--   [Analyze distribution of most significant genes]{style="font-size: 0.7em;"}
+-   [Point 1]{style="font-size: 0.7em;"}
+-   [Point 2]{style="font-size: 0.7em;"}
+-   [Point 3 ]{style="font-size: 0.7em;"}
 :::
 
 ::: {.column width="60%" style="margin-top: 20px;"}
@@ -113,7 +159,9 @@ knitr::include_graphics("../results/06_conf_int_plot.png")
 
 ::: columns
 ::: {.column width="40%"}
--   [Plot illustrates how smoking patterns affect the individual distribution of genes]{style="font-size: 0.7em;"}
+-   [Point 1]{style="font-size: 0.7em;"}
+-   [Point 2]{style="font-size: 0.7em;"}
+-   [Point 3 ]{style="font-size: 0.7em;"}
 :::
 
 ::: {.column width="60%" style="margin-top: 20px;"}

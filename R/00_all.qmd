@@ -15,11 +15,16 @@ In this project, we investigate a gene expression dataset for patients with blad
 ## 
 
 ```{r}
+#| output: false
+#| warning: false
+#| echo: false
 library("quarto")
 ```
 
 ```{r}
-
+#| output: false
+#| warning: false
+#| echo: false
 quarto_render("01_load.qmd")
 quarto_render(input = "02_clean.qmd")
 quarto_render(input = "03_augment.qmd")
@@ -39,6 +44,8 @@ file.rename(from = "05_analysis_1.html",
             to = "../results/05_analysis_1.html")
 file.rename(from = "06_analysis_2.html",
             to = "../results/06_analysis_2.html")
+file.rename(from = "00_all.html",
+            to = "../results/00_all.html")
 ```
 
 {{< include 01_load.qmd >}}

@@ -18,7 +18,8 @@ library(tidyverse)
 
 ```{r}
 #| warning: false
-data <- read_tsv("../data/01_dat_load.tsv")  
+Sys.setenv(VROOM_CONNECTION_SIZE=5000000)
+data <- read_tsv(gzfile("../data/01_dat_load.tsv.gz"))
 head(data)
 ```
 
@@ -38,7 +39,7 @@ data_clean
 ### Writing the data to be used in 04_describe
 
 ```{r}
-write_tsv(data_clean, "../data/02_dat_clean_wide.tsv")
+write_tsv(data_clean, "../data/02_dat_clean_wide.tsv.gz")
 ```
 
 ### Long data format
@@ -72,5 +73,5 @@ data_clean_long
 ### Writing the data
 
 ```{r}
-write_tsv(data_clean_long, "../data/02_dat_clean.tsv")
+write_tsv(data_clean_long, "../data/02_dat_clean.tsv.gz")
 ```

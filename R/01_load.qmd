@@ -68,9 +68,9 @@ gene_exp_file <- read_tsv(file = gene_url,
 
 # Write the data to disk
 write_tsv(x = gene_exp_file,
-          file = "../data/_raw/gene_exp.tsv")
+          file = "../data/_raw/gene_exp.tsv.gz")
 
-gene_exp_data <- read_tsv("../data/_raw/gene_exp.tsv")
+gene_exp_data <- read_tsv(gzfile("../data/_raw/gene_exp.tsv.gz"))
 
 gene_exp_data
 ```
@@ -99,5 +99,5 @@ data_joined = full_join(meta_data, df_wide, by = join_by(GEO))
 ```
 
 ```{r}
-write_tsv(data_joined, "../data/01_dat_load.tsv")
+write_tsv(data_joined, "../data/01_dat_load.tsv.gz")
 ```
