@@ -1,68 +1,261 @@
 ---
 title: "Investigation of gene expression in patients with metastatic urothelial carcinoma"
-author: "Group 7: <br> Yassine Turki (s231735) <br>	Jaime Noguera Piera (s233773) <br> Mette Bøge Pedersen (s194679) <br> Sarah Rosenberg Asmussen (s194689) <br> Caroline Amalie Bastholm Jensen (s213427)"
+subtitle: "Group 7: <br> Yassine Turki (s231735) <br>	Jaime Noguera Piera (s233773) <br> Mette Bøge Pedersen (s194679) <br> Sarah Rosenberg Asmussen (s194689) <br> Caroline Amalie Bastholm Jensen (s213427)"
 format:
   revealjs: 
     slide-number: true
-    theme: moon
-
+    theme: sky
+    width: 2050
+    height: 800
+    margin: 0.1
+    footer: "Group 7 Project: R for Bio Data Science"
 ---
-
 
 ## Aim
 
-```{css}
-.title {
-  font-size: 80px !important;
-}
-
-.quarto-title-author-name {
-  font-size: 20px !important;
-}
-
-```
+<p style="text-align: center;">
 
 *"Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression."*
 
-## Introduction
+</p>
 
--   Disease
+## Introduction: Bladder cancer
 
--   Data description table
+::: columns
+::: {.column width="60%"}
+-   Approx. 500,000 cases worldwide in 2020.
+-   Smoking is considered to account for half of cases.
+-   Only 5% diagnosed with metastasis in distant body parts.
+:::
 
--   Aim
-
-```{r}
-
+::: {.column width="40%"}
+```{r, out.width = "800px"}
+knitr::include_graphics("external_figures/bladder_cancer.png")
 ```
+:::
+:::
+
+<!-- References -->
+
+::: {.absolute bottom="0;" style="font-size: 0.4em; color: grey;"}
+American Cancer Society. 2023. "What Is Bladder Cancer?" https://www.cancer.org/cancer/types/bladder-cancer/about/what-is-bladder-cancer.html.
+
+Cancer.Net. 2023. "Bladder Cancer: Statistics" https://www.cancer.net/cancer-types/bladder-cancer/statistics
+:::
 
 ## Data description
 
+::: columns
+::: {.column width="70%"}
+-   93 patients with urothelial carcinoma undergoing radical cystectomy
+-   Microarray data from patients collected from 1993 to 2004
+-   Only metadata we use is the smoking status and metastasis
+-   Total number of genes is 54,675
+:::
+
+::: {.column width="30%"}
+```{r}
+#| echo: false
+library(table1)
+library(tidyverse)
+
+data_describe <- read_tsv("../data/04_dat_desc.tsv",
+                            show_col_types = FALSE)
+```
+
+```{css}
+table.Rtable1 {
+    font-size: 25pt;
+}
+
+.Rtable1 .firstrow, .Rtable1 .firstrow ~ td {
+    border-top: 1pt solid black;
+}
+
+.Rtable1 td.rowlabel {
+    font-style: italic;
+}
+```
+
+```{r}
+data_describe |> 
+  mutate(Metastasis = factor(Metastasis)) |> 
+  table1(x = formula(~ Smoking + Metastasis), 
+         data = _)
+```
+:::
+:::
+
+<!-- References -->
+
+::: {.absolute bottom="0;" style="font-size: 0.4em; color: grey;"}
+Riester M, Taylor JM, Feifer A, Koppie T et al. Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer. Clin Cancer Res 2012 Mar 1;18(5):1323-33. PMID: 22228636
+:::
+
 ## Methods
 
-Log 2 fold change T test P value
+#### Data cleaning
+
+::: columns
+::: {.column width="70%"}
+-   Selecting smoking, metastasis, and gene expressions as variables
+-   From wide to long format
+-   Filtering genes with standard deviation greater than 0:
+    -   From 54,675 to 48,932 genes
+:::
+
+::: {.column width="30%"}
+:::
+:::
+
+## Methods {.your_specific_slide_identifier}
+
+<!-- Add inline CSS for specific slide -->
+
+```{=html}
+<style>
+/* Adjust font size and move everything higher */
+.your_specific_slide_identifier {
+  font-size: 34px; /* Adjust the font size as needed */
+  margin-top: -2%; /* Adjust the top margin as needed */
+}
+
+/* Adjust layout for two-column display */
+.your_specific_slide_identifier .columns {
+  display: flex;
+  align-items: top; /* Align columns to the top */
+}
+
+.your_specific_slide_identifier .column {
+  flex: 1;
+  margin-right: 20px; /* Adjust the spacing between columns as needed */
+}
+
+.your_specific_slide_identifier .column p {
+  margin-bottom: 5px; /* Adjust the spacing between paragraphs as needed */
+}
+
+/* Change the font size for specific lines */
+.your_specific_slide_identifier .column p small {
+  font-size: 80%; /* Adjust the font size for smaller letters */
+}
+</style>
+```
+### Augmentation
+
+Analyze gene association between gene expression and metastasis.
+
+-   **Fold change**
+    -   Measure the magnitude of gene expression change.
+-   **Data augmentation**: **log2(fold change)**
+    -   Scale for better interpretability due to symmetry.
+
+        ::: columns
+        ::: column
+        $$
+          \text{Avg. log2 FC}_a = \log\left(\frac{\mu(\text{gene}_{\text{meta}})}{\mu(\text{gene}_{\text{non-meta}})}\right)
+          $$
+
+        <small>Average Gene Expression (one value for each gene) </small>
+        :::
+
+        ::: column
+        $$
+          \text{Ind. log2 FC}_{\text{ind}} = \log\left(\frac{\text{gene}_{\text{meta}}}{\mu(\text{gene}_{\text{non-meta}})}\right)
+          $$
+
+        <small>Individual Gene Expression (yes metastasis list for each gene) </small>
+        :::
+        :::
+-   **T-TEST**
+    -   Compare the mean of two groups.
+-   **P-Value (cut)**
+    -   Set at 0.01.
 
 ## Results
 
-```{r}
+<b>Aim of Analysis 1: Identification of Genes Exhibiting Significantly Different Expression between Metastatic and Non-Metastatic Cancer Patients.</b>
+
+::: columns
+::: {.column width="50%"}
+-   Visualize significant genes and their regulation in a volcano plot
+-   Using the average Log2 Fold Change for each gene
+-   286 genes out of 48,932 genes are significantly different expressed in patients with metastasis on a significance level of 0.01
+:::
+
+::: {.column width="50%" style="margin-top: 0px;"}
+```{r, out.width = "800px"}
 knitr::include_graphics("../results/05_volcano_plot.png")
 ```
+:::
+:::
 
+<!-- References -->
 
+::: {.absolute bottom="-50px;" style="font-size: 0.4em; color: grey;"}
+Riester M, Taylor JM, Feifer A, Koppie T et al. Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer. Clin Cancer Res 2012 Mar 1;18(5):1323-33. PMID: 22228636
+:::
 
 ## Results
 
-Description / name of genes
-![conf_int](../results/06_conf_int_plot.png)
-```{r}
+<b>Aim of Analysis 2A: Investigation of Altered Gene Expression in the most significant genes related to metastasis in bladder cancer.</b>
+
+::: columns
+::: {.column width="50%"}
+-   Top 13 most significant genes were selected for further analysis
+-   The figure shows the average Log2 Fold Change value, together with lower and upper 95% confidence intervals
+-   5 genes are up-regulated, 8 genes are down-regulated
+:::
+
+::: {.column width="50%" style="margin-top: 0px;"}
+```{r, out.width = "800px"}
 knitr::include_graphics("../results/06_conf_int_plot.png")
 ```
+:::
+:::
+
+<!-- References -->
+
+::: {.absolute bottom="-50;" style="font-size: 0.4em; color: grey;"}
+Riester M, Taylor JM, Feifer A, Koppie T et al. Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer. Clin Cancer Res 2012 Mar 1;18(5):1323-33. PMID: 22228636
+:::
 
 ## Results
+
+<b>Aim of analysis 2B: Investigation of the effect of smoking in relation to gene expression</b>
+
+::: columns
+::: {.column width="50%"}
+-   [Individual log2fold change for patients with metastasis]{style="font-size: 0.7em;"}
+-   [Count of Current Smokers, Former Smokers, and Non-smokers for each gene]{style="font-size: 0.7em;"}
+-   [13 most significant genes (p \< 0.01) grouped based on up or down regulation being risk factor]{style="font-size: 0.7em;"} <br><br>
+-   [Current smokers for all gene regulation of risk]{style="font-size: 0.7em;"}
+-   [More metastatic patients with genes expression being risk]{style="font-size: 0.7em;"}
+:::
+
+::: {.column width="50%" style="margin-top: 0px;"}
+```{r, out.width = "800px"}
+knitr::include_graphics("../results/06_smoking_plot.png")
+```
+:::
+:::
+
+<!-- References -->
+
+::: {.absolute bottom="-50;" style="font-size: 0.4em; color: grey;"}
+Riester M, Taylor JM, Feifer A, Koppie T et al. Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer. Clin Cancer Res 2012 Mar 1;18(5):1323-33. PMID: 22228636
+:::
 
 ## Discussion
 
--   Over 20 syntax highlighting themes available
--   Default theme optimized for accessibility
+-   Out of 48,932 genes, 286 genes are significantly up or downregulated in patients with metastasis
 
-## Thank you
+-   Current smoking seem to have a relation to gene regulation inducing metastasis in patients with urothelial carcinoma
+
+    -   Statistical test on relation to smoking
+
+<br>
+
+-   Small sample size (N = 93). More data will increase statistical power
+
+-   Include more metadata to the analysis to expand the aim

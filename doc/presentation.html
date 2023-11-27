@@ -6,10 +6,9 @@
 <script src="presentation_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="presentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="presentation_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="presentation_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="presentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.475">
 
-  <meta name="author" content="Group 7:   Yassine Turki (s231735)   Jaime Noguera Piera (s233773)   Mette Bøge Pedersen (s194679)   Sarah Rosenberg Asmussen (s194689)   Caroline Amalie Bastholm Jensen (s213427)">
   <title>Investigation of gene expression in patients with metastatic urothelial carcinoma</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -318,84 +317,300 @@
       margin-right: 0; 
     }
   </style>
+  
+  <link href="presentation_files/libs/table1-1.0/table1_defaults.css" rel="stylesheet">
 </head>
-<body class="quarto-dark">
+<body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Investigation of gene expression in patients with metastatic urothelial carcinoma</h1>
+  <p class="subtitle">Group 7: <br> Yassine Turki (s231735) <br> Jaime Noguera Piera (s233773) <br> Mette Bøge Pedersen (s194679) <br> Sarah Rosenberg Asmussen (s194689) <br> Caroline Amalie Bastholm Jensen (s213427)</p>
 
 <div class="quarto-title-authors">
-<div class="quarto-title-author">
-<div class="quarto-title-author-name">
-Group 7: <br> Yassine Turki (s231735) <br> Jaime Noguera Piera (s233773) <br> Mette Bøge Pedersen (s194679) <br> Sarah Rosenberg Asmussen (s194689) <br> Caroline Amalie Bastholm Jensen (s213427) 
-</div>
-</div>
 </div>
 
 </section>
 <section id="aim" class="slide level2">
 <h2>Aim</h2>
-<div class="cell">
-<style type="text/css">
-.title {
-  font-size: 80px !important;
-}
-
-.quarto-title-author-name {
-  font-size: 20px !important;
-}
-
-</style>
-</div>
-<p><em>“Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression.”</em></p>
+<p style="text-align: center;">
+</p><p><em>“Our aim is to investigate genes being significant up- or down regulated in patients with urothelial carcinoma depending on whether or not they have metastasis. Moreover we want to explore the importance of smoking in regards to the gene expression.”</em></p>
+<p></p>
 </section>
-<section id="introduction" class="slide level2">
-<h2>Introduction</h2>
+<section id="introduction-bladder-cancer" class="slide level2">
+<h2>Introduction: Bladder cancer</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
 <ul>
-<li><p>Disease</p></li>
-<li><p>Data description table</p></li>
-<li><p>Aim</p></li>
+<li>Approx. 500,000 cases worldwide in 2020.</li>
+<li>Smoking is considered to account for half of cases.</li>
+<li>Only 5% diagnosed with metastasis in distant body parts.</li>
 </ul>
+</div><div class="column" style="width:40%;">
 <div class="cell">
-
+<div class="cell-output-display">
+<p><img data-src="external_figures/bladder_cancer.png" width="800"></p>
+</div>
+</div>
+</div>
+</div>
+<!-- References -->
+<div class="absolute" style="font-size: 0.4em; color: grey;bottom: 0;; ">
+<p>American Cancer Society. 2023. “What Is Bladder Cancer?” https://www.cancer.org/cancer/types/bladder-cancer/about/what-is-bladder-cancer.html.</p>
+<p>Cancer.Net. 2023. “Bladder Cancer: Statistics” https://www.cancer.net/cancer-types/bladder-cancer/statistics</p>
 </div>
 </section>
 <section id="data-description" class="slide level2">
 <h2>Data description</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<ul>
+<li>93 patients with urothelial carcinoma undergoing radical cystectomy</li>
+<li>Microarray data from patients collected from 1993 to 2004</li>
+<li>Only metadata we use is the smoking status and metastasis</li>
+<li>Total number of genes is 54,675</li>
+</ul>
+</div><div class="column" style="width:30%;">
+<div class="cell">
+
+</div>
+<div class="cell">
+
+<style type="text/css">
+table.Rtable1 {
+    font-size: 25pt;
+}
+
+.Rtable1 .firstrow, .Rtable1 .firstrow ~ td {
+    border-top: 1pt solid black;
+}
+
+.Rtable1 td.rowlabel {
+    font-style: italic;
+}
+</style>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="Rtable1"><table class="Rtable1">
+<thead>
+<tr>
+<th class="rowlabel firstrow lastrow"></th>
+<th class="firstrow lastrow"><span class="stratlabel">Overall<br><span class="stratn">(N=93)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="rowlabel firstrow">Smoking</td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Current</td>
+<td>19 (20.4%)</td>
+</tr>
+<tr>
+<td class="rowlabel">Former</td>
+<td>56 (60.2%)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Never</td>
+<td class="lastrow">18 (19.4%)</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">Metastasis</td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">0</td>
+<td>57 (61.3%)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">1</td>
+<td class="lastrow">36 (38.7%)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- References -->
+<div class="absolute" style="font-size: 0.4em; color: grey;bottom: 0;; ">
+<p>Riester M, Taylor JM, Feifer A, Koppie T et al.&nbsp;Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer. Clin Cancer Res 2012 Mar 1;18(5):1323-33. PMID: 22228636</p>
+</div>
 </section>
 <section id="methods" class="slide level2">
 <h2>Methods</h2>
-<p>Log 2 fold change T test P value</p>
+<h4 id="data-cleaning">Data cleaning</h4>
+<div class="columns">
+<div class="column" style="width:70%;">
+<ul>
+<li>Selecting smoking, metastasis, and gene expressions as variables</li>
+<li>From wide to long format</li>
+<li>Filtering genes with standard deviation greater than 0:
+<ul>
+<li>From 54,675 to 48,932 genes</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:30%;">
+
+</div>
+</div>
+</section>
+<section id="methods-1" class="slide level2 your_specific_slide_identifier">
+<h2>Methods</h2>
+<!-- Add inline CSS for specific slide -->
+<style>
+/* Adjust font size and move everything higher */
+.your_specific_slide_identifier {
+  font-size: 34px; /* Adjust the font size as needed */
+  margin-top: -2%; /* Adjust the top margin as needed */
+}
+
+/* Adjust layout for two-column display */
+.your_specific_slide_identifier .columns {
+  display: flex;
+  align-items: top; /* Align columns to the top */
+}
+
+.your_specific_slide_identifier .column {
+  flex: 1;
+  margin-right: 20px; /* Adjust the spacing between columns as needed */
+}
+
+.your_specific_slide_identifier .column p {
+  margin-bottom: 5px; /* Adjust the spacing between paragraphs as needed */
+}
+
+/* Change the font size for specific lines */
+.your_specific_slide_identifier .column p small {
+  font-size: 80%; /* Adjust the font size for smaller letters */
+}
+</style>
+<h3 id="augmentation">Augmentation</h3>
+<p>Analyze gene association between gene expression and metastasis.</p>
+<ul>
+<li><strong>Fold change</strong>
+<ul>
+<li>Measure the magnitude of gene expression change.</li>
+</ul></li>
+<li><strong>Data augmentation</strong>: <strong>log2(fold change)</strong>
+<ul>
+<li><p>Scale for better interpretability due to symmetry.</p>
+<div class="columns">
+<div class="column">
+<p><span class="math display">\[
+  \text{Avg. log2 FC}_a = \log\left(\frac{\mu(\text{gene}_{\text{meta}})}{\mu(\text{gene}_{\text{non-meta}})}\right)
+  \]</span></p>
+<p><small>Average Gene Expression (one value for each gene) </small></p>
+</div><div class="column">
+<p><span class="math display">\[
+  \text{Ind. log2 FC}_{\text{ind}} = \log\left(\frac{\text{gene}_{\text{meta}}}{\mu(\text{gene}_{\text{non-meta}})}\right)
+  \]</span></p>
+<p><small>Individual Gene Expression (yes metastasis list for each gene) </small></p>
+</div>
+</div></li>
+</ul></li>
+<li><strong>T-TEST</strong>
+<ul>
+<li>Compare the mean of two groups.</li>
+</ul></li>
+<li><strong>P-Value (cut)</strong>
+<ul>
+<li>Set at 0.01.</li>
+</ul></li>
+</ul>
 </section>
 <section id="results" class="slide level2">
 <h2>Results</h2>
-
-<img data-src="../results/05_volcano_plot.png" width="1050" class="r-stretch"></section>
-<section id="results-1" class="slide level2">
-<h2>Results</h2>
-<p>Description / name of genes <img data-src="../results/06_conf_int_plot.png" alt="conf_int"></p>
+<p><b>Aim of Analysis 1: Identification of Genes Exhibiting Significantly Different Expression between Metastatic and Non-Metastatic Cancer Patients.</b></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Visualize significant genes and their regulation in a volcano plot</li>
+<li>Using the average Log2 Fold Change for each gene</li>
+<li>286 genes out of 48,932 genes are significantly different expressed in patients with metastasis on a significance level of 0.01</li>
+</ul>
+</div><div class="column" style="margin-top: 0px;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="../results/06_conf_int_plot.png" width="1050"></p>
+<p><img data-src="../results/05_volcano_plot.png" width="800"></p>
 </div>
+</div>
+</div>
+</div>
+<!-- References -->
+<div class="absolute" style="font-size: 0.4em; color: grey;bottom: -50px;; ">
+<p>Riester M, Taylor JM, Feifer A, Koppie T et al.&nbsp;Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer. Clin Cancer Res 2012 Mar 1;18(5):1323-33. PMID: 22228636</p>
+</div>
+</section>
+<section id="results-1" class="slide level2">
+<h2>Results</h2>
+<p><b>Aim of Analysis 2A: Investigation of Altered Gene Expression in the most significant genes related to metastasis in bladder cancer.</b></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Top 13 most significant genes were selected for further analysis</li>
+<li>The figure shows the average Log2 Fold Change value, together with lower and upper 95% confidence intervals</li>
+<li>5 genes are up-regulated, 8 genes are down-regulated</li>
+</ul>
+</div><div class="column" style="margin-top: 0px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="../results/06_conf_int_plot.png" width="800"></p>
+</div>
+</div>
+</div>
+</div>
+<!-- References -->
+<div class="absolute" style="font-size: 0.4em; color: grey;bottom: -50;; ">
+<p>Riester M, Taylor JM, Feifer A, Koppie T et al.&nbsp;Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer. Clin Cancer Res 2012 Mar 1;18(5):1323-33. PMID: 22228636</p>
 </div>
 </section>
 <section id="results-2" class="slide level2">
 <h2>Results</h2>
+<p><b>Aim of analysis 2B: Investigation of the effect of smoking in relation to gene expression</b></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><span style="font-size: 0.7em;">Individual log2fold change for patients with metastasis</span></li>
+<li><span style="font-size: 0.7em;">Count of Current Smokers, Former Smokers, and Non-smokers for each gene</span></li>
+<li><span style="font-size: 0.7em;">13 most significant genes (p &lt; 0.01) grouped based on up or down regulation being risk factor</span> <br><br></li>
+<li><span style="font-size: 0.7em;">Current smokers for all gene regulation of risk</span></li>
+<li><span style="font-size: 0.7em;">More metastatic patients with genes expression being risk</span></li>
+</ul>
+</div><div class="column" style="margin-top: 0px;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="../results/06_smoking_plot.png" width="800"></p>
+</div>
+</div>
+</div>
+</div>
+<!-- References -->
+<div class="absolute" style="font-size: 0.4em; color: grey;bottom: -50;; ">
+<p>Riester M, Taylor JM, Feifer A, Koppie T et al.&nbsp;Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer. Clin Cancer Res 2012 Mar 1;18(5):1323-33. PMID: 22228636</p>
+</div>
 </section>
 <section id="discussion" class="slide level2">
 <h2>Discussion</h2>
 <ul>
-<li>Over 20 syntax highlighting themes available</li>
-<li>Default theme optimized for accessibility</li>
+<li><p>Out of 48,932 genes, 286 genes are significantly up or downregulated in patients with metastasis</p></li>
+<li><p>Current smoking seem to have a relation to gene regulation inducing metastasis in patients with urothelial carcinoma</p>
+<ul>
+<li>Statistical test on relation to smoking</li>
+</ul></li>
 </ul>
-</section>
-<section id="thank-you" class="slide level2">
-<h2>Thank you</h2>
+<p><br></p>
+<ul>
+<li><p>Small sample size (N = 93). More data will increase statistical power</p></li>
+<li><p>Include more metadata to the analysis to expand the aim</p></li>
+</ul>
 <div class="footer footer-default">
-
+<p>Group 7 Project: R for Bio Data Science</p>
 </div>
 </section>
     </div>
@@ -575,9 +790,9 @@ Group 7: <br> Yassine Turki (s231735) <br> Jaime Noguera Piera (s233773) <br> Me
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 2050,
 
-        height: 700,
+        height: 800,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
