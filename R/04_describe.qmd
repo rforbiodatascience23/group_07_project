@@ -36,6 +36,13 @@ data_describe <- read_tsv("../data/02_dat_clean_wide.tsv",
 data_describe
 ```
 
+```{r}
+data_clean_sd <- read_tsv( "../data/02_dat_clean.tsv",
+                            show_col_types = FALSE)
+
+data_clean_sd
+```
+
 ## Counting number of genes
 
 ```{r}
@@ -50,6 +57,18 @@ number_of_genes <- data_describe |>
 number_of_genes
 ```
 
+We have a total number of 54,675 genes for each patient in the original dataset. Then we also calculate the standard deviation for each gene, and filtered out all the genes with a standard deviation of 0 which means they were neither up-regulated nor down-regulated.
+
+```{r}
+number_of_genes_after_sd <- data_clean_sd |> 
+  distinct(gene) |> 
+  count()
+
+number_of_genes_after_sd
+```
+
+After removing these genes, we end up with 48,932 genes.
+
 ## Table visualizing meta data
 
 ```{r}
@@ -62,14 +81,14 @@ table_data <- data_describe |>
 table_data
 ```
 
+In the table we can see that the majority of patients are have smoked for at period of time in their lives, though we do not know for how long and how frequently they smoked in that time. Then we have almost an equal amount for current smokers, and patients who have never smoked.
+
+For metastasis, we see that \~60% do not have metastasis and the rest do.
+
+## Writing a dataset to be used in presentation
+
 ```{r}
-# this doesn't work
-ggsave(
-  filename = "../results/04_table_data.pdf",
-  plot = table_data,
-  device = "pdf")
-
-print(table_data)
-
-dev.off()
+data_describe |>
+  select(c(Smoking, Metastasis)) |> 
+  write_tsv("../data/04_dat_desc.tsv")
 ```
