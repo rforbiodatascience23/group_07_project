@@ -44,7 +44,7 @@ Cancer.Net. 2023. "Bladder Cancer: Statistics" https://www.cancer.net/cancer-typ
 
 :::: {.columns}
 
-::: {.column width="60%"}
+::: {.column width="50%"}
 - 93 patients undergoing radical cystectomy
 - Data collected from 1993 to 2004
 - Only metadata we use is the smoking status and metastasis
@@ -52,7 +52,7 @@ Cancer.Net. 2023. "Bladder Cancer: Statistics" https://www.cancer.net/cancer-typ
 - After sd 48,932
 :::
 
-::: {.column width="40%"}
+::: {.column width="50%"}
 ```{r}
 #| echo: false
 library(table1)
@@ -62,7 +62,7 @@ data_describe <- read_tsv("../data/04_dat_desc.tsv",
                             show_col_types = FALSE)
 ```
 
-```{r}
+```{r, out.width = "2000px"}
 data_describe |> 
   mutate(Metastasis = factor(Metastasis)) |> 
   table1(x = formula(~ Smoking + Metastasis), 
