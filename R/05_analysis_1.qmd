@@ -21,6 +21,11 @@ data <- read_tsv("../data/03_dat_aug.tsv")
 data
 ```
 
+```{r}
+data |>
+  group_by(gene) 
+```
+
 ## Analysis 1
 
 In the first analysis, we want to identify which genes are found to be significantly different expressed in patients with metastatic cancer compared to non-metastatic cancer. Furthermore, we want to investigate if the gene expression is up-regulated of down-regulated.
@@ -29,7 +34,9 @@ The significance was calculated on the basis of a Student's T-test where the exp
 
 The Log2 Fold Change for each gene was calculated based on the average gene expression level by comparing samples with metastasis and no metastasis.
 
-These results are shown in a volcano plot:
+**Conclusion:**
+
+These results are shown in a volcano plot where the -10log(p-value) is shown on the y-axis and the Log2-Fold-Change is hown on the x-axis. Each dot represents a gene. From this, we can observe some genes, specifically 286 genes out of 48,932 genes, that are significantly different expressed in patients with metastasis on a significance level of 0.01. We can also observe that the significant genes typically are more up-regulated or down-regulated.
 
 ```{r}
 volcano_plot <- data |> 
