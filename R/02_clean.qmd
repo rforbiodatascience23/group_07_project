@@ -66,7 +66,6 @@ data_clean_long <- data_clean_long |>
   group_by(gene) |>
   filter(sd(gene_expression)!=0)
 
-  
 data_clean_long
 ```
 
@@ -74,4 +73,5 @@ data_clean_long
 
 ```{r}
 write_tsv(data_clean_long, "../data/02_dat_clean.tsv.gz")
+write_tsv(head(data_clean_long), "../data/02_dat_clean_head.tsv.gz")
 ```
