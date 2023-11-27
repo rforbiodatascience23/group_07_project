@@ -17,7 +17,8 @@ library(tidyverse)
 ```
 
 ```{r}
-data_clean <- read_tsv(gzfile("../data/02_dat_clean.tsv.gz"))
+data_clean <- read_tsv(gzfile("../data/02_dat_clean.tsv.gz"),
+                       show_col_types = FALSE)
 data_clean
 ```
 
