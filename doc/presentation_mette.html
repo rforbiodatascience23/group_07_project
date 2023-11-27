@@ -356,7 +356,7 @@
 </div>
 </div>
 <!-- References -->
-<div class="absolute" style="font-size: 0.3em; color: grey;bottom: 0;; ">
+<div class="absolute" style="font-size: 0.4em; color: grey;bottom: 0;; ">
 <p>American Cancer Society. 2023. “What Is Bladder Cancer?” https://www.cancer.org/cancer/types/bladder-cancer/about/what-is-bladder-cancer.html.</p>
 <p>Cancer.Net. 2023. “Bladder Cancer: Statistics” https://www.cancer.net/cancer-types/bladder-cancer/statistics</p>
 </div>
@@ -366,11 +366,13 @@
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li>93 patients undergoing radical cystectomy</li>
-<li>Data collected from 1993 to 2004</li>
+<li>93 patients with urothelial carcinoma undergoing radical cystectomy</li>
+<li>Microarray data from patients collected from 1993 to 2004</li>
 <li>Only metadata we use is the smoking status and metastasis</li>
-<li>Total number of genes is 54,675</li>
-<li>After sd 48,932</li>
+<li>Total number of genes is 54,675
+<ul>
+<li>After keeping genes with sd&gt;0 –&gt; 48,932 genes</li>
+</ul></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <div class="cell">
@@ -423,6 +425,10 @@
 </div>
 </div>
 </div>
+<!-- References -->
+<div class="absolute" style="font-size: 0.4em; color: grey;bottom: 0;; ">
+<p>Riester M, Taylor JM, Feifer A, Koppie T et al.&nbsp;Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer. Clin Cancer Res 2012 Mar 1;18(5):1323-33. PMID: 22228636</p>
+</div>
 </section>
 <section id="methods" class="slide level2">
 <h2>Methods</h2>
@@ -443,14 +449,15 @@ log2foldchange = \log(\frac{gene\_expression_{metastasis}}{\mu(gene\_expression_
 </section>
 <section id="results" class="slide level2">
 <h2>Results</h2>
+<h4 id="aim-of-analysis-1-identification-of-genes-exhibiting-significantly-different-expression-between-metastatic-and-non-metastatic-cancer-patients.">Aim of Analysis 1: Identification of Genes Exhibiting Significantly Different Expression between Metastatic and Non-Metastatic Cancer Patients.</h4>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:50%;">
 <ul>
-<li><span style="font-size: 0.7em;">Point 1</span></li>
-<li><span style="font-size: 0.7em;">Point 2</span></li>
-<li><span style="font-size: 0.7em;">Point 3</span></li>
+<li>Visualize significant genes and their regulation in a volcano plot.</li>
+<li>Using the average Log2 Fold Change for each gene.</li>
+<li>286 genes out of 48,932 genes are significantly different expressed in patients with metastasis on a significance level of 0.01.</li>
 </ul>
-</div><div class="column" style="margin-top: 20px;">
+</div><div class="column" style="margin-top: 0px;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="../results/05_volcano_plot.png" width="800"></p>
@@ -458,24 +465,32 @@ log2foldchange = \log(\frac{gene\_expression_{metastasis}}{\mu(gene\_expression_
 </div>
 </div>
 </div>
+<!-- References -->
+<div class="absolute" style="font-size: 0.4em; color: grey;bottom: -50px;; ">
+<p>Riester M, Taylor JM, Feifer A, Koppie T et al.&nbsp;Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer. Clin Cancer Res 2012 Mar 1;18(5):1323-33. PMID: 22228636</p>
+</div>
 </section>
 <section id="results-1" class="slide level2">
 <h2>Results</h2>
-<p>Description / name of genes</p>
+<h4 id="aim-of-analysis-2a-investigation-of-altered-gene-expression-in-the-most-significant-genes-related-to-metastasis-in-bladder-cancer.">Aim of Analysis 2A: Investigation of Altered Gene Expression in the most significant genes related to metastasis in bladder cancer.</h4>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:50%;">
 <ul>
-<li><span style="font-size: 0.7em;">Point 1</span></li>
-<li><span style="font-size: 0.7em;">Point 2</span></li>
-<li><span style="font-size: 0.7em;">Point 3</span></li>
+<li>Top 13 most significant genes were selected for further analysis.</li>
+<li>The figure shows the average Log2 Fold Change value (circle), together with lower and upper 95% confidence intervals (shown as error bars).</li>
+<li>5 genes are up-regulated, 8 genes are down-regulated.</li>
 </ul>
-</div><div class="column" style="margin-top: 20px;">
+</div><div class="column" style="margin-top: 0px;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="../results/06_conf_int_plot.png" width="800"></p>
 </div>
 </div>
 </div>
+</div>
+<!-- References -->
+<div class="absolute" style="font-size: 0.4em; color: grey;bottom: -50;; ">
+<p>Riester M, Taylor JM, Feifer A, Koppie T et al.&nbsp;Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer. Clin Cancer Res 2012 Mar 1;18(5):1323-33. PMID: 22228636</p>
 </div>
 </section>
 <section id="results-2" class="slide level2">
@@ -499,11 +514,15 @@ log2foldchange = \log(\frac{gene\_expression_{metastasis}}{\mu(gene\_expression_
 </div>
 </div>
 </div>
+<!-- References -->
+<div class="absolute" style="font-size: 0.4em; color: grey;bottom: -50;; ">
+<p>Riester M, Taylor JM, Feifer A, Koppie T et al.&nbsp;Combination of a novel gene expression signature with a clinical nomogram improves the prediction of survival in high-risk bladder cancer. Clin Cancer Res 2012 Mar 1;18(5):1323-33. PMID: 22228636</p>
+</div>
 </section>
 <section id="discussion" class="slide level2">
 <h2>Discussion</h2>
 <ul>
-<li><p>Out of X genes, 286 genes are significantly up or downregulated in patients with metastasis.</p></li>
+<li><p>Out of 48,932 genes, 286 genes are significantly up or downregulated in patients with metastasis.</p></li>
 <li><p>Current smoking seem to have a relation to gene regulation inducing metastasis in patients with urothelial carcinoma.</p>
 <ul>
 <li>Statistical test on relation to smoking.</li>
@@ -511,7 +530,7 @@ log2foldchange = \log(\frac{gene\_expression_{metastasis}}{\mu(gene\_expression_
 </ul>
 <p><br></p>
 <ul>
-<li><p>Small sample size (N=93). More data will increase statistical power.</p></li>
+<li><p>Small sample size (N=36). More data will increase statistical power.</p></li>
 <li><p>Include more metadata to the analysis to expand the aim.</p></li>
 </ul>
 <div class="footer footer-default">
