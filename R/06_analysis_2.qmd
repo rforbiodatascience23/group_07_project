@@ -1,10 +1,6 @@
 ---
-<<<<<<< HEAD
 title: "Group 7 Project"
 subtitle: "06_analysis_2"
-=======
-title: "Second Analysis"
->>>>>>> 01f9439d0e63b5a8f0d08d4e6c1ffbb3567c3231
 editor: visual
 format:
   html:
