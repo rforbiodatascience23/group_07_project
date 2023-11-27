@@ -71,7 +71,8 @@ gene_exp_file <- read_tsv(file = gene_url,
 write_tsv(x = gene_exp_file,
           file = "../data/_raw/gene_exp.tsv.gz")
 
-gene_exp_data <- read_tsv(gzfile("../data/_raw/gene_exp.tsv.gz"))
+gene_exp_data <- read_tsv(gzfile("../data/_raw/gene_exp.tsv.gz"),
+                          show_col_types = FALSE)
 
 gene_exp_data
 ```
