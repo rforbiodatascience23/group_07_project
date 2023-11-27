@@ -10,6 +10,10 @@ author: "Sarah Rosenberg Asmussen (s194689),	Mette Bøge Pedersen (s194679),	Car
 ## Data Load
 
 ```{r}
+
+```
+
+```{r}
 data_clean <- read_tsv("../data/02_dat_clean.tsv")
 data_clean
 ```

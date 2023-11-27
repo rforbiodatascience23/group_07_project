@@ -28,6 +28,11 @@ Cancer gene expression data from 93 patients undergoing radical cystectomy (RC) 
 ## Data load
 
 ```{r}
+library(table1)
+library(tidyverse)
+```
+
+```{r}
 #| warning: false
 #| output: false
 data_describe <- read_tsv("../data/02_dat_clean_wide.tsv",

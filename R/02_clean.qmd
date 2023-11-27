@@ -10,6 +10,10 @@ editor: visual
 ## Load Data
 
 ```{r}
+library(tidyverse)
+```
+
+```{r}
 #| output: false
 #| warning: false
 data <- read_tsv("../data/01_dat_load.tsv")  
